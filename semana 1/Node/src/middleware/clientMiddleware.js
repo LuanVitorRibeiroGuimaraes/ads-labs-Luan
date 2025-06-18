@@ -3,6 +3,10 @@ function validarNome(nome) {
     return nomeLimpo.length >= 5
 }
 
+function validarCPF(cpf) {
+    return cpf.length == 13
+}
+
 // function validarCpf(cpf) {
 //     if (cpf.length < 13) return null
 
