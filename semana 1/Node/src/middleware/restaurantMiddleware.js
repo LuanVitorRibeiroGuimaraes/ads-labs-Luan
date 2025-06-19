@@ -1,13 +1,13 @@
 function nomeRestaurante(req, res, next) {
     const nomeRestaurante = req.body.nomeRestaurante;
 
-    if(!nomeRestaurant) {
+    if(!nomeRestaurante) {
         return res.status(400).json({
             message: "O campo nomeRestaurante é obrigatório!"
         });
     }
 
-    if(nomeRestaurant.length < 2) {
+    if(nomeRestaurante.length < 2) {
         return res.status(400).json({
             message: "O nome do restaurante deve ter entre 3 a 50 caracteres!"
         });
@@ -34,13 +34,38 @@ function contatoRestaurante(req, res, next) {
 
     if(contatoRestaurante.length < 10 || contatoRestaurante.length > 11) {
         return res.status(400).json({
-            message: "O campo contatoRestaurante deve ter entre 10 a 11 caracteres"
+            message: "O campo contatoRestaurante deve ter entre 10 a 11 caracteres!"
         });
     }
 
     next();
 }
 
-function validarNomePrato(req, res, next) {
+function nomePrato(req, res, next) {
+    const nomePrato = req.body.nomePrato
+
+    if(!nomePrato) {
+        return res.status(400).json({
+            message: "O campo nomePrato é obrigatório"
+        })
+    }
+
+    if(nomePrato.length < 4 || nomePrato.length > 30) {
+        return res.status(400).json({
+            message: "O campo nomePrato deve ter entre 4 a 30 caracteres!"
+        })
+    }
     
+    next()
+}
+
+function enderecoRestaurante(req, res, next) {
+    const { rua, bairro, numero }  = req.body
+}
+
+module.exports = {
+    nomeRestaurante,
+    contatoRestaurante,
+    nomePrato,
+    enderecoRestaurante,
 }

@@ -1,8 +1,0 @@
-/*
-id
-name
-age
-cpf
-tel number
-qnt orders
-*/
