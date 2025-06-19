@@ -2,6 +2,6 @@
 id
 name
 tel number
-offer dishes
+nomePrato
 cidade, bairro, rua, numero, complemento
 */

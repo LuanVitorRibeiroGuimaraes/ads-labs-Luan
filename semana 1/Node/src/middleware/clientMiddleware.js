@@ -1,87 +1,86 @@
-function validarNome(nome) {
-    const nomeLimpo = nome.trim()
-    return nomeLimpo.length >= 5
-}
+    // ^ e $	delimitam o começo e o fim da string (garantem que src/models/client.jstudo será validado)
+    // A-Za-z	letras sem acento
+    // À-ÖØ-öø-ÿ	letras com acento (unicode de letras latinas acentuadas e ç)
+    // \s	espaço
+    // \-	hífen (precisa escapar com \)
+    // +	pelo menos um caractere permitido
 
-function validarCPF(cpf) {
-    return cpf.length == 13
-}
-
-// function validarCpf(cpf) {
-//     if (cpf.length < 13) return null
-
-//     let cpfAtigo = cpf
-
-//     const limparCpf = cpfAtigo.replace(/[.\-]/g, '')
-
-//     let penultimoDigitoCpf = parseInt(limparCpf[9], 10);
-//     let ultimoDigitoCpf = parseInt(limparCpf[10], 10);
-
-//     let novoCpfInt = []
-
-//     for (let i = 0; i < cpf.length; i ++) {
-//         if (cpf[i] != '.' && cpf[i] != '-') {
-//             novoCpfInt.push(parseInt(cpf[i]))
-//         }
-//     }
-
-//     let cont = 10
-//     let primeiroDigitoFinal = 0
-
-//     for (let i = 0; i < 9; i++) {
-//         primeiroDigitoFinal += (novoCpfInt[i] * cont)
-//         cont --
-//     }
-
-//     let penultimoDigitoValido = (firstDigit * 10) % 11
-//     (penultimoDigitoValido == 10) ? penultimoDigitoValido == 0 : penultimoDigitoValido = penultimoDigitoValido
-
-//     cont = 11
-//     let segundoDigitoFinal = 0
-
-//     for (let i = 0; i < 9; i++) {
-//         segundoDigitoFinal += (newCpfInt[i] * cont)
-//         cont --
-//     }
-
-//     ultimoDigitoCpfValido += (penultimoDigitoCpf * 2)
-//     ultimoDigitoCpfValido *= (10) % 11
-
-//     return (penultimoDigitoValido == penultimoDigitoCpf && ultimoDigitoCpfValido == ultimoDigitoCpf) ? 1 : 0
-
+function validarNome(req, res, next) {
+    const nome = req.body.nome;
+    const nomeRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s\-]+$/;
     
-// }
+    if (!nome) {
+        return res.status(400).json({
+            message: "O campo idade é obrigatório!"
+        });
+    }
 
-function validarEmail(email) {
-    const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i
-    
-    return emailRegex.test(email)
+    if (!nomeRegex.test(nome)) {
+        return res.status(400).json({
+            message: "Caracter invalido no nome!"
+        });
+    }
+
+    if (nome.length < 0) {
+        return res.status(400).json({
+            message: "A idade deve ser maior que 0"
+        });
+    }
+
+    next();
 }
 
-function validarIdade(age) {
-    return age.length >= 1
+function validarIdade(req, res, next) {
+    const data = req.body.idade;
+    if (!data) {
+        return res.status(400).json({
+            message: "O campo idade é obrigatório"
+        });
+    }
+
+    next();
 }
 
-function validarTelefone(telNumber) {
-    return telNumber.length == 13
+function validarCPF(req, res, next) {
+    const cpf = req.body.cpf;
+
+    if (!cpf) {
+        return res.status(400).json({
+            message: "O campo CPF é obrigatorio"
+        });
+    }
+
+    next();
 }
 
-function validateUserMiddleware(req, res, next) {
-    // Pega os campos email e senha do objeto req.body e me dá variáveis com esses nomes
-    const { name, age, cpf, email, telNumber } = req.body
+function validarNumeroTelefone(req, res, next) {
+    const  numeroTelefone = req.body.temNumber;
+    const regexNumeroTelefone = /^[0-9]+$/;
 
-    return (validarNome(name) && 
-    validarIdade(age) &&
-    validarCPF(cpf) && 
-    validarEmail(email) && 
-    validarTelefone(telNumber))
-    ? 1 : 0
+    if (!numeroTelefone) {
+        return res.status(400).json({
+            message: "O campo numero telefone é obrigatório!"
+        });
+    }
+
+    if(!regexNumeroTelefone.test(numeroTelefone)) {
+        return res.status(400).json({
+            message: "O telefone deve conter somente números!"
+        });
+    }
+
+    if (numeroTelefone.length != 11) {
+        return res.status(400).json({
+            message: "O numero de telefone deve conter 11 caracteres (dd + nono dígito + número)"
+        });
+    }
+
+    next();
 }
 
 module.exports = {
     validarNome,
-    validarCPF,
-    validarEmail,
     validarIdade,
-    validarTelefone,
+    validarCPF,
+    validarNumeroTelefone,
 }
