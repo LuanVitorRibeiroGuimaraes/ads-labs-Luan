@@ -1,16 +1,12 @@
 const express = require('express')
+const cliente = require('../models/cliente')
 
-const clientMiddleware = {
-    validarNome,
-    validarIdade,
-    validarCPF,
-    validarNumeroTelefone,
-} = require('../middleware/clientMiddleware')
-const clientMiddleware = require('../middleware/clientMiddleware')
-const sharedMiddleware = { requestData } = require('../middleware/sharedMiddleware')
+function getClient(data) {
+    const { id_cliente } = data
 
-function getClient() {
-    
+    if(!data) {
+        throw new Error("ID do cliente é obrigatório.") 
+    }
 }
 
 function createClient() {
@@ -23,4 +19,11 @@ function updateClient() {
 
 function deleteClient() {
 
+}
+
+module.exports = {
+    getClient,
+    createClient,
+    updateClient,
+    deleteClient,
 }

@@ -1,4 +1,4 @@
-const { DataTypes, INTEGER, STRING } = require('sequelize')
+const { DataTypes } = require('sequelize')
 const { sequelize } = require('../../database')
 
 const cliente = sequelize.define(
@@ -8,7 +8,6 @@ const cliente = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
-
         },
         nome: {
             type: DataTypes.STRING,
@@ -32,8 +31,9 @@ const cliente = sequelize.define(
         }
     },
     {
-        sequelize,
         modelName: 'Cliente',
         tableName: 'clientes',
     }
 )
+
+module.exports = cliente

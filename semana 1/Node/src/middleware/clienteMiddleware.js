@@ -1,23 +1,18 @@
-    // ^ e $	delimitam o começo e o fim da string (garantem que src/models/client.jstudo será validado)
-    // A-Za-z	letras sem acento
-    // À-ÖØ-öø-ÿ	letras com acento (unicode de letras latinas acentuadas e ç)
-    // \s	espaço
-    // \-	hífen (precisa escapar com \)
-    // +	pelo menos um caractere permitido
+const { SchemaValidationHelper } = require('../shared/SchemaHelperValidation')
 
-function validarNome(req, res, next) {
+function nome(req, res, next) {
     const nome = req.body.nome;
     const nomeRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s\-]+$/;
     
     if (!nome) {
         return res.status(400).json({
-            message: "O campo idade é obrigatório!"
+            message: SchemaValidationHelper.errorMapper('nome', 'required')
         });
     }
 
     if (!nomeRegex.test(nome)) {
         return res.status(400).json({
-            message: "Caracter invalido no nome!"
+            message: SchemaValidationHelper.errorMapper('nome', 'invalidChar')
         });
     }
 
@@ -30,36 +25,43 @@ function validarNome(req, res, next) {
     next();
 }
 
-function validarIdade(req, res, next) {
-    const data = req.body.idade;
-    if (!data) {
+function idade(req, res, next) {
+    const idade = req.body.idade;
+    
+    if (!idade) {
         return res.status(400).json({
-            message: "O campo idade é obrigatório"
+            message: SchemaValidationHelper.errorMapper('idade', 'required')
         });
+    }
+
+    if(idade) {
+        return res.status(400).json({
+            message: "A idade deve ser maior 0."
+        })
     }
 
     next();
 }
 
-function validarCPF(req, res, next) {
+function cpf(req, res, next) {
     const cpf = req.body.cpf;
 
     if (!cpf) {
         return res.status(400).json({
-            message: "O campo CPF é obrigatorio"
+            message: SchemaValidationHelper.errorMapper('cpf', 'required')
         });
     }
 
     next();
 }
 
-function validarNumeroTelefone(req, res, next) {
+function numeroTelefone(req, res, next) {
     const  numeroTelefone = req.body.temNumber;
     const regexNumeroTelefone = /^[0-9]+$/;
 
     if (!numeroTelefone) {
         return res.status(400).json({
-            message: "O campo numero telefone é obrigatório!"
+            message: SchemaValidationHelper.errorMapper('required', 'numeroTelefone')
         });
     }
 
@@ -79,8 +81,8 @@ function validarNumeroTelefone(req, res, next) {
 }
 
 module.exports = {
-    validarNome,
-    validarIdade,
-    validarCPF,
-    validarNumeroTelefone,
+    nome,
+    idade,
+    cpf,
+    numeroTelefone,
 }

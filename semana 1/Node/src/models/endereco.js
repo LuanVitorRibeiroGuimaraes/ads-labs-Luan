@@ -22,8 +22,9 @@ const endereco = sequelize.define(
         }
     },
     {
-        sequelize,
         modelName: 'Endereco',
         tableName: 'enderecos'
     }
 )
+
+module.exports = endereco

@@ -1,19 +1,21 @@
+const { SchemaHelperValidation } = require('../shared/SchemaHelperValidation')
+
 function nomeRestaurante(req, res, next) {
     const nomeRestaurante = req.body.nomeRestaurante;
 
     if(!nomeRestaurante) {
         return res.status(400).json({
-            message: "O campo nomeRestaurante é obrigatório!"
+            message: SchemaHelperValidation.errorMapper('nomeRestaurante', 'required')
         });
     }
 
     if(nomeRestaurante.length < 2) {
         return res.status(400).json({
-            message: "O nome do restaurante deve ter entre 3 a 50 caracteres!"
+            message: SchemaHelperValidation.range('nomeRestaurante', 2, 40)
         });
     }
 
-    next()
+    next();
 }
 
 function contatoRestaurante(req, res, next) {
@@ -22,7 +24,7 @@ function contatoRestaurante(req, res, next) {
 
     if(!contatoRestaurante) {
         return res.status(400).json({
-            message: "O campo contatoRestaurante é obrigatório!"
+            message: SchemaHelperValidation.errorMapper('contatoRestaurante', 'required')
         });
     }
 
@@ -34,7 +36,7 @@ function contatoRestaurante(req, res, next) {
 
     if(contatoRestaurante.length < 10 || contatoRestaurante.length > 11) {
         return res.status(400).json({
-            message: "O campo contatoRestaurante deve ter entre 10 a 11 caracteres!"
+            message: SchemaHelperValidation.range('contatoRestaurante', 10, 11)
         });
     }
 
@@ -46,26 +48,21 @@ function nomePrato(req, res, next) {
 
     if(!nomePrato) {
         return res.status(400).json({
-            message: "O campo nomePrato é obrigatório"
-        })
+            message: SchemaHelperValidation.errorMapper('nomePrato', 'required')
+        });
     }
 
     if(nomePrato.length < 4 || nomePrato.length > 30) {
         return res.status(400).json({
-            message: "O campo nomePrato deve ter entre 4 a 30 caracteres!"
-        })
+            message: SchemaHelperValidation.range('nomePrato', 4, 30)
+        });
     }
     
-    next()
-}
-
-function enderecoRestaurante(req, res, next) {
-    const { rua, bairro, numero }  = req.body
+    next();
 }
 
 module.exports = {
     nomeRestaurante,
     contatoRestaurante,
     nomePrato,
-    enderecoRestaurante,
 }
