@@ -1,12 +1,8 @@
 const express = require('express')
-const cliente = require('../models/cliente')
+const Cliente = require('../models/cliente')
 
-function getClient(data) {
-    const { id_cliente } = data
-
-    if(!data) {
-        throw new Error("ID do cliente é obrigatório.") 
-    }
+async function getClient(req, res) {
+    return await cliente.findByPk
 }
 
 function createClient() {

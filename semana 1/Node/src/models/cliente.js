@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize')
 const { sequelize } = require('../../database')
 
-const cliente = sequelize.define(
+const Cliente = sequelize.define(
     'Cliente',
     {
         id_cliente: {
@@ -14,19 +14,19 @@ const cliente = sequelize.define(
             allowNull: false,
         },
         idade: {
-            type: INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: false,
         },  
         cpf: {
-            type: STRING,
+            type: DataTypes.STRING,
             allowNull: false
         },
         numeroTelefone: {
-            type: STRING,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         qtdPratosPedidos: {
-            type: INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: false
         }
     },
@@ -36,4 +36,4 @@ const cliente = sequelize.define(
     }
 )
 
-module.exports = cliente
+module.exports = Cliente
