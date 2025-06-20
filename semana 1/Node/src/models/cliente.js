@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize')
 const { sequelize } = require('../../database')
 
-const cliente = sequelize.define(
+const Cliente = sequelize.define(
     'Cliente',
     {
         id_cliente: {
@@ -36,4 +36,4 @@ const cliente = sequelize.define(
     }
 )
 
-module.exports = cliente
+module.exports = Cliente
