@@ -1,20 +1,28 @@
-const express = require('express')
-const clienteRouter = express.Router()
+const express = require('express');
+const clienteRouter = express.Router();
 
-const clienteMiddlware = require('../middleware/clientMiddleware')
+const clienteMiddlware = require('../middleware/clienteMiddleware');
 
-const clientController = require('../controller/clientController')
+const clienteController = require('../controller/clienteController');
 
-clienteRouter.get('/', clientController.getAllClientes)
+clienteRouter.get('/', clienteController.getAllClientes);
 
-clienteRouter.get('/', clientController.getClientes)
+clienteRouter.get('/:id', clienteController.getCliente);
 
-clienteRouter.post('/', clientController.createClientes)
+clienteRouter.post('/', 
+    clienteMiddlware.nome,
+    clienteMiddlware.cpf,
+    clienteMiddlware.email,
+    clienteMiddlware.numeroTelefone,
+    clienteController.createCliente);
 
-clienteRouter.put('/', clientController.updateClientes)
+clienteRouter.put('/', 
+    clienteMiddlware.nome,
+    clienteMiddlware.cpf,
+    clienteMiddlware.email,
+    clienteMiddlware.numeroTelefone,
+    clienteController.updateCliente);
 
-clienteRouter.delete('/', clientController.deleteClientes)
+clienteRouter.delete('/:id', clienteController.deleteCliente);
 
-module.exports = {
-    clienteRouter,
-}
+module.exports = clienteRouter;

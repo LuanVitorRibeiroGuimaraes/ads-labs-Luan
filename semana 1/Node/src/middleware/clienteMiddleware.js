@@ -1,4 +1,4 @@
-const { SchemaValidationHelper } = require('../shared/SchemaHelperValidation')
+const { SchemaValidationHelper } = require('../shared/SchemaValidationHelper');
 
 function nome(req, res, next) {
     const nome = req.body.nome;
@@ -51,12 +51,30 @@ function cpf(req, res, next) {
             message: SchemaValidationHelper.errorMapper('cpf', 'required')
         });
     }
+    next();
+}
+
+function email(req, res, next) {
+    const email = req.body.email;
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if(!email) {
+        return res.status(400).json({
+            message: SchemaValidationHelper.errorMapper('email', 'required')
+        });
+    }
+
+    if(!regexEmail.test(email)) {
+        return res.status(400).json({
+            message: "O email informado é inválido."
+        });
+    }
 
     next();
 }
 
 function numeroTelefone(req, res, next) {
-    const  numeroTelefone = req.body.temNumber;
+    const  numeroTelefone = req.body.numeroTelefone;
     const regexNumeroTelefone = /^[0-9]+$/;
 
     if (!numeroTelefone) {
@@ -84,5 +102,6 @@ module.exports = {
     nome,
     idade,
     cpf,
+    email,
     numeroTelefone,
 }

@@ -1,13 +1,14 @@
-const { DataTypes, INTEGER, STRING } = require('sequelize')
-const { sequelize } = require('../../database')
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../../database');
 
-const restaurante = sequelize.define(
+const Restaurante = sequelize.define(
     'Restaurante',
     {
-        id_restaurate: {
+        id_restaurante: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
             primaryKey: true,
+            autoIncrement: true,
         },
         nomeRestaurante: {
             type: DataTypes.STRING,
@@ -21,18 +22,21 @@ const restaurante = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        id_endereco: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
-          references: {
-            model: 'Endereco',
-            key: 'id_enderecoßßßßßßßßß'
-          }
-        }
+        id_pedidoCliente: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'clientes',
+                key: 'id_cliente',
+            }
+        },
     },
     {
-        sequelize,
         modelName: 'Restaurante',
         tableName: 'restaurante',
     }
-)
+);
+
+
+
+module.exports = Restaurante;

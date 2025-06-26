@@ -1,22 +1,25 @@
-const express = require('express')
-const restauranteRouter = express.Router()
+const express = require('express');
+const restauranteRouter = express.Router();
 
-const restaurantController = require('../controller/restaurantController')
+const restauranteMiddleware = require('../middleware/restauranteMiddleware');
+const restauranteController = require('../controller/restauranteController');
 
-restauranteRouter.get('/', restaurantController.listRestaurants)
+restauranteRouter.get('/', restauranteController.getAllRestaurantes);
 
-restauranteRouter.post('/', restaurantController.createRestaurant)
+restauranteRouter.get('/', restauranteController.getRestaurante);
 
-restauranteRouter.post('/', restaurantController.createDish)
+restauranteRouter.post('/', 
+    restauranteMiddleware.nomeRestaurante,
+    restauranteMiddleware.contatoRestaurante,
+    restauranteMiddleware.nomePrato,
+    restauranteController.createRestaurante);
 
-restauranteRouter.put('/:id', restaurantController.updateRestaurant)
+restauranteRouter.put('/:id',  
+    restauranteMiddleware.nomeRestaurante,
+    restauranteMiddleware.contatoRestaurante,
+    restauranteMiddleware.nomePrato,
+    restauranteController.updateRestaurante);
 
-restauranteRouter.put('/:id', restaurantController.updateDish)
+restauranteRouter.delete('/:id', restauranteController.deleteRestaurante);
 
-restauranteRouter.delete('/:id', restaurantController.deleteRestaurant)
-
-restauranteRouter.delete('/:id', restaurantController.deleteDish)
-
-module.exports = {
-    restauranteRouter,
-}
+module.exports = restauranteRouter;

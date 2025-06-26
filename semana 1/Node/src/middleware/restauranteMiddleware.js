@@ -1,4 +1,4 @@
-const { SchemaHelperValidation } = require('../shared/SchemaHelperValidation')
+const { SchemaHelperValidation } = require('../shared/SchemaValidationHelper');
 
 function nomeRestaurante(req, res, next) {
     const nomeRestaurante = req.body.nomeRestaurante;
