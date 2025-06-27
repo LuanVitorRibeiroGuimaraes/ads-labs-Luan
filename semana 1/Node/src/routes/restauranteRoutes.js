@@ -4,9 +4,13 @@ const restauranteRouter = express.Router();
 const restauranteMiddleware = require('../middleware/restauranteMiddleware');
 const restauranteController = require('../controller/restauranteController');
 
+restauranteRouter.get('/valorGasto', restauranteController.relatorioMaiorValorGasto);
+
+restauranteRouter.get('/maisPedidos', restauranteController.relatorioMaisPedidos);
+
 restauranteRouter.get('/', restauranteController.getAllRestaurantes);
 
-restauranteRouter.get('/', restauranteController.getRestaurante);
+restauranteRouter.get('/:id', restauranteController.getRestaurante);
 
 restauranteRouter.post('/', 
     restauranteMiddleware.nomeRestaurante,

@@ -14,13 +14,13 @@ clienteRouter.post('/',
     clienteMiddlware.cpf,
     clienteMiddlware.email,
     clienteMiddlware.numeroTelefone,
+    clienteMiddlware.nomePrato,
     clienteController.createCliente);
 
-clienteRouter.put('/', 
-    clienteMiddlware.nome,
-    clienteMiddlware.cpf,
+clienteRouter.put('/',
     clienteMiddlware.email,
     clienteMiddlware.numeroTelefone,
+    clienteMiddlware.nomePrato,
     clienteController.updateCliente);
 
 clienteRouter.delete('/:id', clienteController.deleteCliente);

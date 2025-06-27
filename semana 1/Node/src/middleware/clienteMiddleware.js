@@ -1,18 +1,18 @@
-const { SchemaValidationHelper } = require('../shared/SchemaValidationHelper');
+const { errorMapper } = require('../shared/SchemaValidationHelper');
 
 function nome(req, res, next) {
     const nome = req.body.nome;
     const nomeRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s\-]+$/;
-    
+
     if (!nome) {
-        return res.status(400).json({
-            message: SchemaValidationHelper.errorMapper('nome', 'required')
+        return res.status(400).json({ //
+            message: errorMapper('nome', 'required')
         });
     }
 
     if (!nomeRegex.test(nome)) {
         return res.status(400).json({
-            message: SchemaValidationHelper.errorMapper('nome', 'invalidChar')
+            message: errorMapper('nome', 'invalidChar')
         });
     }
 
@@ -30,7 +30,7 @@ function idade(req, res, next) {
     
     if (!idade) {
         return res.status(400).json({
-            message: SchemaValidationHelper.errorMapper('idade', 'required')
+            message: errorMapper('idade', 'required')
         });
     }
 
@@ -48,7 +48,7 @@ function cpf(req, res, next) {
 
     if (!cpf) {
         return res.status(400).json({
-            message: SchemaValidationHelper.errorMapper('cpf', 'required')
+            message: errorMapper('cpf', 'required')
         });
     }
     next();
@@ -60,7 +60,7 @@ function email(req, res, next) {
 
     if(!email) {
         return res.status(400).json({
-            message: SchemaValidationHelper.errorMapper('email', 'required')
+            message: errorMapper('email', 'required')
         });
     }
 
@@ -89,9 +89,27 @@ function numeroTelefone(req, res, next) {
         });
     }
 
-    if (numeroTelefone.length != 11) {
+    if (numeroTelefone.length < 11) {
         return res.status(400).json({
             message: "O numero de telefone deve conter 11 caracteres (dd + nono dígito + número)"
+        });
+    }
+
+    next();
+}
+
+function nomePrato(res, res, next) {
+    const nomePrato = req.body.nomePrato;
+
+    if(!nomePrato) {
+        return res.status(400).json({
+            message: "O nome do prato é obrigatório."
+        });
+    }
+
+    if(nomePrato.length < 3) {
+        return res.status(400).json({
+            message: "O nome do prato deve conter ao menos 3 caracteres."
         });
     }
 
@@ -104,4 +122,5 @@ module.exports = {
     cpf,
     email,
     numeroTelefone,
+    nomePrato,
 }

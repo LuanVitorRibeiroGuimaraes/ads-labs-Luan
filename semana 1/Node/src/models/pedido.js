@@ -1,38 +1,38 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../database');
 
-const Restaurante = sequelize.define(
-    'Restaurante',
+const Pedido = sequelize.define(
+    'Pedido',
     {
-        id_restaurante: {
+        id_pedido: {
             type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
             autoIncrement: true,
         },
-        nomeRestaurante: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        contatoRestaurante: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        nomePrato: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        id_pedidoCliente: {
+        id_prato: {
             type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'pratos',
+                key: 'id_prato',
+            }
+        },
+        cliente_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
             references: {
                 model: 'clientes',
                 key: 'id_cliente',
             }
         },
+        valor_total: {
+            type: DataTypes.DECIMAL,
+        }
     },
     {
-        tableName: 'restaurante',
+        tableName: 'pedido',
     }
-);
+)
 
-module.exports = Restaurante;
+module.exports = Pedido

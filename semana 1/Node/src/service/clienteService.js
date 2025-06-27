@@ -21,8 +21,8 @@ async function getCliente(id_cliente) {
 }
 
 async function createCliente(data) {
-    const emailExistente = clienteRepository.getCliente({email: data.email})
-    const cpfExistente = clienteRepository.getCliente({cpf: data.cpf})
+    const emailExistente = await clienteRepository.getCliente({email: data.email})
+    const cpfExistente = await clienteRepository.getCliente({cpf: data.cpf})
 
     if(emailExistente) {
         throw new Error("Esse email já está em uso.");
@@ -32,7 +32,7 @@ async function createCliente(data) {
         throw new Error("Esse cpf já está em uso.");
     }
 
-    const createCliente = await clienteRepository.updateCliente(newData, { id_cliente });
+    const createCliente = await clienteRepository.createCliente(data);
 
     if(!createCliente) {
         throw new Error("Não foi possível criar o cliente.");
@@ -41,8 +41,8 @@ async function createCliente(data) {
     return createCliente;
 }
 
-async function updateCliente(newData, data) {
-    const findCliente = await clienteRepository.getCliente({id_cliente: data.id_cliente});
+async function updateCliente(id_cliente, newData) {
+    const findCliente = await clienteRepository.getClienteById(id_cliente);
 
     if(!findCliente) {
         throw new Error("Cliente não encontrado.");
@@ -68,14 +68,14 @@ async function deleteCliente(id_cliente) {
     if(!findCliente) {
         throw new Error("Cliente não encontrado.");
     }
+    
+    const clienteDeletado = await clienteRepository.deleteCliente({id_cliente});
 
-    const deleteCliente = await clienteRepository.deleteCliente({findCliente});
-
-    if(!deleteCliente) {
+    if(!clienteDeletado) {
         throw new Error("Não foi possível deletar o cliente.");
     }
 
-    return deleteCliente;
+    return clienteDeletado;
 }
 
 module.exports = {

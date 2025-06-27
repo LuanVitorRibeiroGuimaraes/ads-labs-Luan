@@ -1,9 +1,31 @@
 const restauranteService = require('../service/restauranteService');
 const restauranteRepository = require('../repository/restauranteRepository');
 
+async function relatorioMaiorValorGasto(res){
+    try {    
+        return res.status(200).json({
+            message: restauranteRepository.getRelatorioMaiorValorGasto
+        });        
+    } catch (error) {
+        return res.status(500).json({message: error.message});
+    }
+}
+
+async function relatorioMaisPedidos(res) {
+    try {
+        return res.status(200).json({
+            message: restauranteRepository.getRelatorioMaisPedidos
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: error.message
+        });
+    }
+}
+
 async function getAllRestaurantes(res) {
     try {
-        const findAllRestaurantes = restauranteService.getRestaurant
+        const findAllRestaurantes = await restauranteService.getRestaurant
         return res.status(200).json({message: [findAllRestaurantes]});
     } catch (error) {
         return res.status(500).json({
@@ -16,7 +38,7 @@ async function getRestaurante(req, res) {
     try {
         const {id_restaurante} = req.params;
 
-        const restaurante = restauranteService.getRestaurant(id_restaurante);
+        const restaurante = await restauranteService.getRestaurant(id_restaurante);
 
         return res.status(200).json({restaurante});
     } catch (error) {
@@ -62,6 +84,8 @@ async function deleteRestaurante(req, res) {
 }
 
 module.exports = {
+    relatorioMaiorValorGasto,
+    relatorioMaisPedidos,
     getAllRestaurantes,
     getRestaurante,
     createRestaurante,

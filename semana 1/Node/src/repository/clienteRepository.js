@@ -4,24 +4,24 @@ async function getAllClientes() {
     return await Cliente.findAll();
 }
 
-async function getClienteById(data) {
-    return await Cliente.findByPk(data);
+async function getClienteById(id_cliente) {
+    return await Cliente.findByPk(id_cliente);
 }
 
 async function getCliente(data) {
-    return await Cliente.findOne({ where: data });
+    return await Cliente.findOne({ where: data});
 }
 
 async function createCliente(data) {
     return await Cliente.create(data);
 }
 
-async function updateCliente(newData, data) {
-    return await Cliente.update(newData, { where: data });
+async function updateCliente(newData, id_cliente) {
+    return await Cliente.update(newData, { where: {id_cliente: id_cliente} });
 }
 
-async function deleteCliente(data) {
-    return await Cliente.destroy({where: data});
+async function deleteCliente(id_cliente) {
+    return await Cliente.destroy({where: {id_cliente: id_cliente}});
 }
 
 module.exports = {

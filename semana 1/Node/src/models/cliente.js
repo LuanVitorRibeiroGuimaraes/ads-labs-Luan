@@ -17,7 +17,11 @@ const Cliente = sequelize.define(
         idade: {
             type: DataTypes.INTEGER,
             allowNull: false,
-        },  
+        },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         cpf: {
             type: DataTypes.STRING,
             allowNull: false,

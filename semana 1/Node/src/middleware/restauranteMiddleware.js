@@ -1,17 +1,17 @@
-const { SchemaHelperValidation } = require('../shared/SchemaValidationHelper');
+const { errorMapper, range } = require('../shared/SchemaValidationHelper');
 
 function nomeRestaurante(req, res, next) {
     const nomeRestaurante = req.body.nomeRestaurante;
 
     if(!nomeRestaurante) {
         return res.status(400).json({
-            message: SchemaHelperValidation.errorMapper('nomeRestaurante', 'required')
+            message: errorMapper('nomeRestaurante', 'required')
         });
     }
 
     if(nomeRestaurante.length < 2) {
         return res.status(400).json({
-            message: SchemaHelperValidation.range('nomeRestaurante', 2, 40)
+            message: range('nomeRestaurante', 2, 40)
         });
     }
 
@@ -24,7 +24,7 @@ function contatoRestaurante(req, res, next) {
 
     if(!contatoRestaurante) {
         return res.status(400).json({
-            message: SchemaHelperValidation.errorMapper('contatoRestaurante', 'required')
+            message: errorMapper('contatoRestaurante', 'required')
         });
     }
 
@@ -36,7 +36,7 @@ function contatoRestaurante(req, res, next) {
 
     if(contatoRestaurante.length < 10 || contatoRestaurante.length > 11) {
         return res.status(400).json({
-            message: SchemaHelperValidation.range('contatoRestaurante', 10, 11)
+            message: range('contatoRestaurante', 10, 11)
         });
     }
 
@@ -48,13 +48,13 @@ function nomePrato(req, res, next) {
 
     if(!nomePrato) {
         return res.status(400).json({
-            message: SchemaHelperValidation.errorMapper('nomePrato', 'required')
+            message: errorMapper('nomePrato', 'required')
         });
     }
 
     if(nomePrato.length < 4 || nomePrato.length > 30) {
         return res.status(400).json({
-            message: SchemaHelperValidation.range('nomePrato', 4, 30)
+            message: range('nomePrato', 4, 30)
         });
     }
     

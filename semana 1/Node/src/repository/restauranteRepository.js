@@ -4,8 +4,8 @@ async function getAllRestaurante() {
     return await Restaurante.findAll();
 }
 
-async function getRestauranteById(data) {
-    return await Restaurante.findByPk(data);
+async function getRestauranteById(id_restaurante) {
+    return await Restaurante.findByPk(id_restaurante);
 }
 
 async function getRestaurante(data) {
@@ -16,12 +16,12 @@ async function createRestaurante(data) {
     return await Restaurante.create(data);
 }
 
-async function updateRestaurante(newData, data) {
-    return await Restaurante.update(newData, {where: data});
+async function updateRestaurante(newData, id_restaurante) {
+    return await Restaurante.update(newData, {where: {id_restaurante: id_restaurante}});
 }
 
-async function deleteRestaurante(data) {
-    return await Restaurante.destroy({where: data});
+async function deleteRestaurante(id_restaurante) {
+    return await Restaurante.destroy({where: {id_restaurante: id_restaurante}});
 }
 
 //gerar relatorios
