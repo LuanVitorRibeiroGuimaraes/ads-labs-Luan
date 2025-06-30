@@ -26,25 +26,8 @@ const Cliente = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        numeroTelefone: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        qtdPratosPedidos: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        qtdValorGasto: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        nomePrato: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
     },
     {
-        modelName: 'Cliente',
         tableName: 'clientes',
     }
 );

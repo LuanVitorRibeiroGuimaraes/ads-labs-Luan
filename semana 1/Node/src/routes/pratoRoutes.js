@@ -5,10 +5,20 @@ const pratoMiddleware = require('../middleware/pratoMiddleware');
 
 const pratoController = require('../controller/pratoController');
 
-pratoRouter.get('/', pratoController);
+pratoRouter.get('/all', pratoController.getAllPratos);
 
-pratoRouter.post('/', pratoController);
+pratoRouter.get('/:id', pratoController.getPrato);
 
-pratoRouter.put('/', pratoController);
+pratoRouter.post('/', 
+    pratoMiddleware.nome,
+    pratoMiddleware.valor,
+    pratoController.createPrato);
 
-pratoRouter.delete('/', pratoController);
+pratoRouter.put('/:id', 
+    pratoMiddleware.nome,
+    pratoMiddleware.valor,
+    pratoController.updatePrato);
+
+pratoRouter.delete('/:id', pratoController.deletePrato);
+
+module.exports = pratoRouter;

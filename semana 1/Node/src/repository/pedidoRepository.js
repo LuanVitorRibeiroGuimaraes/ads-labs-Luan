@@ -17,11 +17,11 @@ async function createPedido(data) {
 }
 
 async function updatePedido(newData, id_pedido) {
-    return await Pedido.update(newData, {where: id_pedido});
+    return await Pedido.update(newData, {where: {id_pedido: id_pedido}});
 }
 
 async function deletePedido(id_pedido) {
-    return await Pedido.destroy(id_pedido);
+    return await Pedido.destroy({where: id_pedido});
 }
 
 module.exports = {

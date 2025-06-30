@@ -39,15 +39,20 @@ async function createPrato(data) {
 }
 
 async function updatePrato(newData, id_prato) {
-    const findPrato = getPrato(id_prato);
+    const findPrato = await pratoRepository.getPratoById(id_prato);
+    const nomePrato = await pratoRepository.getPrato({nome: newData.nome});
 
     if(!findPrato) {
         throw new Error("Prato não encontrado");
     }
 
-    const pratoAtualizado = await pratoRepository.updatePrato(newData, {id_prato: id_prato});
+    if(nomePrato) {
+        throw new Error('Esse prato já está cadastrado.');
+    }
 
-    if(!pratoAtualizado) {
+    const [pratoAtualizado] = await pratoRepository.updatePrato(newData, id_prato);
+
+    if(pratoAtualizado === 0) {
         throw new Error("Não foi possível atualizar o prato.");
     }
 
@@ -55,15 +60,15 @@ async function updatePrato(newData, id_prato) {
 }
 
 async function deletePrato(id_prato) {
-    const findPrato = getPrato(id_prato);
+    const findPrato = await getPrato(id_prato);
 
     if(!findPrato) {
         throw new Error("Prato não encontrado");
     }
 
-    const pratoDeletado = await pratoRepository.deletePrato({id_prato});
+    const pratoDeletado = await pratoRepository.deletePrato(id_prato); //coloquei em array para ver as linhas afetadas
 
-    if(!pratoDeletado) {
+    if(pratoDeletado === 0) {
         throw new Error("Não foi possível deletar o prato.");
     }
 

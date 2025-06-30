@@ -16,9 +16,9 @@ function nome(req, res, next) {
         });
     }
 
-    if (nome.length < 0) {
+    if (nome.length < 3) {
         return res.status(400).json({
-            message: "A idade deve ser maior que 0"
+            message: "O nome deve ser maior que 0"
         });
     }
 
@@ -34,7 +34,7 @@ function idade(req, res, next) {
         });
     }
 
-    if(idade) {
+    if(idade.length < 1) {
         return res.status(400).json({
             message: "A idade deve ser maior 0."
         })
@@ -51,6 +51,43 @@ function cpf(req, res, next) {
             message: errorMapper('cpf', 'required')
         });
     }
+
+    const cpfLimpo = cpf.replace(/\D/g, '');
+
+    if (cpfLimpo.length !== 11 || /^(\d)\1{10}$/.test(cpfLimpo)) {
+        return res.status(400).json({
+            message: errorMapper('cpf', 'invalid')
+        });
+    }
+
+    let soma = 0;
+    let resto;
+    
+    for (let i = 0; i < 9; i++) {
+        soma += parseInt(cpfLimpo.charAt(i)) * (10 - i);
+    }
+    resto = 11 - (soma % 11);
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpfLimpo.charAt(9))) {
+        return res.status(400).json({
+            message: errorMapper('cpf', 'invalid')
+        });
+    }
+
+    soma = 0;
+    for (let i = 0; i < 10; i++) {
+        soma += parseInt(cpfLimpo.charAt(i)) * (11 - i);
+    }
+    resto = 11 - (soma % 11);
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpfLimpo.charAt(10))) {
+        return res.status(400).json({
+            message: errorMapper('cpf', 'invalid')
+        });
+    }
+
+    req.cpfFormatado = cpfLimpo.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+
     next();
 }
 
@@ -79,7 +116,7 @@ function numeroTelefone(req, res, next) {
 
     if (!numeroTelefone) {
         return res.status(400).json({
-            message: SchemaValidationHelper.errorMapper('required', 'numeroTelefone')
+            message: errorMapper('required', 'numeroTelefone')
         });
     }
 
@@ -98,29 +135,10 @@ function numeroTelefone(req, res, next) {
     next();
 }
 
-function nomePrato(res, res, next) {
-    const nomePrato = req.body.nomePrato;
-
-    if(!nomePrato) {
-        return res.status(400).json({
-            message: "O nome do prato é obrigatório."
-        });
-    }
-
-    if(nomePrato.length < 3) {
-        return res.status(400).json({
-            message: "O nome do prato deve conter ao menos 3 caracteres."
-        });
-    }
-
-    next();
-}
-
 module.exports = {
     nome,
     idade,
     cpf,
     email,
     numeroTelefone,
-    nomePrato,
 }

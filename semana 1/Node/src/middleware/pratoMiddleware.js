@@ -16,9 +16,9 @@ function nome(req, res, next) {
         });
     }
 
-    if (nome.length < 0) {
+    if (nome.length < 3) {
         return res.status(400).json({
-            message: "A idade deve ser maior que 0"
+            message: "O nome deve ser maior que 3"
         });
     }
 
@@ -34,11 +34,13 @@ function valor(req, res, next) {
         });
     }
 
-    if (valor < 0) {
-        return res.status(400).json({ //
+    if (valor < 1) {
+        return res.status(400).json({
             message: "O valor do prato não pode ser menor que 1"
         });
     }
+
+    next();
 }
 
 module.exports = {

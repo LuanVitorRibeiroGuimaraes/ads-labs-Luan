@@ -18,17 +18,6 @@ const Restaurante = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        nomePrato: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        id_pedidoCliente: {
-            type: DataTypes.INTEGER,
-            references: {
-                model: 'clientes',
-                key: 'id_cliente',
-            }
-        },
     },
     {
         tableName: 'restaurante',

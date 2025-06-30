@@ -1,44 +1,46 @@
 const restauranteService = require('../service/restauranteService');
-const restauranteRepository = require('../repository/restauranteRepository');
 
-async function relatorioMaiorValorGasto(res){
-    try {    
-        return res.status(200).json({
-            message: restauranteRepository.getRelatorioMaiorValorGasto
-        });        
-    } catch (error) {
-        return res.status(500).json({message: error.message});
-    }
+async function getClientesMaisPedidos(req, res) {
+  try {
+    const dados = await restauranteService.relatorioClienteMaisPedidos();
+    res.status(200).json(dados);
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao buscar os clientes com mais pedidos' });
+  }
 }
 
-async function relatorioMaisPedidos(res) {
-    try {
-        return res.status(200).json({
-            message: restauranteRepository.getRelatorioMaisPedidos
-        });
-    } catch (error) {
-        return res.status(500).json({
-            message: error.message
-        });
-    }
+async function getPratosMaisPedidos(req, res) {
+  try {
+    const dados = await restauranteService.pratosMaisPedidos();
+    res.status(200).json(dados);
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao buscar os pratos mais pedidos' });
+  }
 }
 
-async function getAllRestaurantes(res) {
+async function getClientesMaisGastaram(req, res) {
+  try {
+    const dados = await restauranteService.clientesQueMaisGastaram();
+    res.status(200).json(dados);
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao buscar os clientes que mais gastaram' });
+  }
+}
+
+async function getAllRestaurantes(req, res) {
     try {
-        const findAllRestaurantes = await restauranteService.getRestaurant
-        return res.status(200).json({message: [findAllRestaurantes]});
+        const restaurantes = await restauranteService.getAllRestaurantes();
+        return res.status(200).json(restaurantes);
     } catch (error) {
-        return res.status(500).json({
-            message: error.message
-        });
+        return res.status(500).json({ message: error.message });
     }
 }
 
 async function getRestaurante(req, res) {
     try {
-        const {id_restaurante} = req.params;
+        const {id} = req.params;
 
-        const restaurante = await restauranteService.getRestaurant(id_restaurante);
+        const restaurante = await restauranteService.getRestaurante(id);
 
         return res.status(200).json({restaurante});
     } catch (error) {
@@ -50,7 +52,7 @@ async function createRestaurante(req, res) {
     try {
         const data = req.body;
 
-        await restauranteService.createRestaurant(data);
+        await restauranteService.createRestaurante(data);
 
         return res.status(201).json({message: "Restaurante criado com sucesso."});
     } catch (error) {
@@ -60,11 +62,10 @@ async function createRestaurante(req, res) {
 
 async function updateRestaurante(req, res) {
     try {
-        const {id_restaurante} = req.params;
+        const {id} = req.params;
         const data = req.body;
 
-        await restauranteService.updateRestaurant(id_restaurante, data);
-
+        await restauranteService.updateRestaurante(data, id);
         return res.status(200).json({message: "Restaurante atualizado com sucesso."});
     } catch (error) {
         return res.status(500).json({message:error.message});
@@ -73,19 +74,20 @@ async function updateRestaurante(req, res) {
 
 async function deleteRestaurante(req, res) {
     try {
-        const {id_restaurante} = req.params;
+        const {id} = req.params;
 
-        await restauranteService.deleteRestaurant(id_restaurante);
+        await restauranteService.deleteRestaurante(id);
         
-        return res.status(200).json({message: `Restaurante id:${id_restaurante} foi deletado com sucesso.`}); 
+        return res.status(200).json({message: `Restaurante id:${id} foi deletado com sucesso.`}); 
     } catch (error) {
         return res.status(400).json({message: error.message});
     }
 }
 
 module.exports = {
-    relatorioMaiorValorGasto,
-    relatorioMaisPedidos,
+    getClientesMaisPedidos,
+    getPratosMaisPedidos,
+    getClientesMaisGastaram,
     getAllRestaurantes,
     getRestaurante,
     createRestaurante,

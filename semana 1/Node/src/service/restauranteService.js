@@ -1,8 +1,64 @@
-const Restaurante = require('../models/restaurante');
+const { sequelize } = require('../../database');
 const restauranteRepository = require('../repository/restauranteRepository');
 
-// Buscar um restaurante por ID
-async function getRestaurant(id_restaurate) {
+async function relatorioClienteMaisPedidos() {
+  return (await sequelize.query(`
+    SELECT 
+      c.nome, COUNT(p.id_pedido) AS qtd_pedidos
+    FROM 
+      clientes c 
+    JOIN 
+      pedidos p ON c.id_cliente = p.cliente_id 
+    GROUP BY 
+      c.id_cliente, c.nome 
+    ORDER BY 
+      qtd_pedidos DESC 
+    LIMIT 5
+  `))[0];
+}
+
+async function pratosMaisPedidos() {
+    const resultado = (await sequelize.query(`
+      SELECT
+        pr.nome, COUNT(pe.id_pedido) AS qtd_pedidos
+      FROM
+        pratos pr
+      JOIN
+        pedidos pe ON pr.id_prato = pe.prato_id
+      GROUP BY
+        pr.id_prato, pr.nome
+      ORDER BY
+        qtd_pedidos DESC
+    `))[0];
+    
+  return resultado;
+}
+
+async function clientesQueMaisGastaram() {
+    const resultado = (await sequelize.query(`
+      SELECT
+      c.nome, SUM(pr.valor) AS total_gasto
+      FROM
+        clientes c
+      JOIN
+        pedidos ped ON c.id_cliente = ped.cliente_id
+      JOIN
+        pratos pr ON ped.prato_id = pr.id_prato  -- << Aqui: usar prato_id!
+      GROUP BY
+        c.id_cliente, c.nome
+      ORDER BY
+        total_gasto DESC
+      LIMIT 5;
+      `))[0];
+    
+  return resultado;
+}
+
+async function getAllRestaurantes() {
+  return await restauranteRepository.getAllRestaurantes();
+}
+
+async function getRestaurante(id_restaurate) {
     if(!id_restaurate) {
         throw new Error("O ID do restaurante é obrigatório")
     }
@@ -16,26 +72,17 @@ async function getRestaurant(id_restaurate) {
     return findRestaurante;
 }
 
-// Puxar em ordem os clientes com mais pedidos
-async function getQtdPedidosCliente(req, res) {
-    const findCliente = 10;
-    // preciso de um relacionamento de clientes 
-    // filtrar os clientes com mais pedidos
-    // retornar os clientes em ordem de mais pedidos
-}
-
-async function getRelatorioMaiorValorGasto(params) {
-    const findCliente = await restauranteRepository.getRestaurante({id_restaurante});
-}
-
-// Criar restaurante
-async function createRestaurant(data) {
+async function createRestaurante(data) {
 
     const findNomeRestaurante = await restauranteRepository.getRestaurante({nomeRestaurante: data.nomeRestaurante});
     const findContatoRestaurante = await restauranteRepository.getRestaurante({contatoRestaurante: data.contatoRestaurante});
 
-    if (findNomeRestaurante || findContatoRestaurante) {
-        throw new Error('O restaurante já está cadastrado.');
+    if (findNomeRestaurante) {
+        throw new Error('Este nome já está em uso.');
+    }
+
+    if(findContatoRestaurante) {
+      throw new Error('Este numero já está em uso');
     }
 
     const createRestaurante = await restauranteRepository.createRestaurante(data);
@@ -47,50 +94,55 @@ async function createRestaurant(data) {
     return createRestaurante;
 }
 
-// Atualizar restaurante
-async function updateRestaurant(id_restaurante, data) {
+async function updateRestaurante(data, id_restaurante) {
 
     if(!id_restaurante) {
         throw new Error("O ID do restaurante é obrigatório");
     }
 
-    const findRestaurante = await restauranteRepository.getRestauranteById({id_restaurante});
+    const findRestaurante = await restauranteRepository.getRestauranteById(id_restaurante);
 
     if (!findRestaurante) {
         throw new Error('Restaurante não encontrado.');
     }
 
-    const updateRestaurante = await restauranteRepository.updateRestaurante(data, {id_restaurante});
+    const [updateRes] = await restauranteRepository.updateRestaurante(data, id_restaurante);
 
-    if(!updateRestaurante) {
+    if(updateRes === 0) {
         throw new Error("Não foi possível atualizar os dados do restaurante");
     }
 
-    return updateRestaurante;
+    return {message: "Atualização realizada com sucesso."};
 }
 
-// Deletar restaurante
-async function deleteRestaurant(id_restaurante) {
+async function deleteRestaurante(id_restaurante) {
     
     if(!id_restaurante) {
         throw new Error("O ID do restaurante é obrigatório");
     }
 
-    const findRestaurante = await Restaurante.findByPk(id_restaurante);
+    const findRestaurante = await restauranteRepository.getRestauranteById(id_restaurante);
 
     if (!findRestaurante) {
         throw new Error('Restaurante não encontrado.');
     }
 
-    const deleteRestaurante = restauranteRepository.deleteRestaurante({findRestaurante});
+    const deletedRestaurante = await restauranteRepository.deleteRestaurante(id_restaurante);
 
-    return findRestaurante;
+    if(deletedRestaurante === 0) {
+        throw new Error("Não foi possível deletar o restaurante");
+    }
+
+    return deletedRestaurante;
 }
 
 module.exports = {
-    getRestaurant,
-    getQtdPedidosCliente,
-    createRestaurant,
-    updateRestaurant,
-    deleteRestaurant,
+    relatorioClienteMaisPedidos,
+    pratosMaisPedidos,
+    clientesQueMaisGastaram,
+    getAllRestaurantes,
+    getRestaurante,
+    createRestaurante,
+    updateRestaurante,
+    deleteRestaurante,
 };

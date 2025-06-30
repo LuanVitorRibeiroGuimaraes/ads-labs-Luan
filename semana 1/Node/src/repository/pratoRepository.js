@@ -17,11 +17,11 @@ async function createPrato(data) {
 }
 
 async function updatePrato(newData, id_prato) {
-    return await Prato.update(newData, {where: id_prato});
+    return await Prato.update(newData, {where: {id_prato: id_prato}});
 }
 
 async function deletePrato(id_prato) {
-    return await Prato.destroy({where: id_prato});
+    return await Prato.destroy({where: {id_prato: id_prato}});
 }
 
 module.exports = {

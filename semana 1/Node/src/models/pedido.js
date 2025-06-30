@@ -10,7 +10,15 @@ const Pedido = sequelize.define(
             primaryKey: true,
             autoIncrement: true,
         },
-        id_prato: {
+        id_restaurante: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'restaurante',
+                key: 'id_restaurante',
+            }
+        },
+        prato_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
@@ -26,12 +34,9 @@ const Pedido = sequelize.define(
                 key: 'id_cliente',
             }
         },
-        valor_total: {
-            type: DataTypes.DECIMAL,
-        }
     },
     {
-        tableName: 'pedido',
+        tableName: 'pedidos',
     }
 )
 

@@ -17,48 +17,31 @@ const app = express();
 app.use(express.json());
 
 //rotas a serem utilizadas
-app.use('/ads-labs/api/restaurante', restauranteRouter);
-app.use('/ads-labs/api/cliente', clienteRouter);
-app.use('/ads-labs/api/pedido', pedidoRouter);
-app.use('/ads-labs/api/prato', pratoRouter);
+app.use('/api/restaurante', restauranteRouter);
+app.use('/api/cliente', clienteRouter);
+app.use('/api/prato', pratoRouter)
+app.use('/api/pedido', pedidoRouter);
 
 const PORT = process.env.PORT || 3000;
 
 //relacionamentos
-Restaurante.belongsTo(Cliente, {
-    foreignKey: 'id_pedidoCliente',
-    targetKey: 'id_cliente',
-});
+Restaurante.hasMany(Pedido, { foreignKey: 'id_restaurante' });
+Pedido.belongsTo(Restaurante, { foreignKey: 'id_restaurante' });
 
-Cliente.hasMany(Restaurante, {
-    foreignKey: 'id_pedidoCliente',
-    sourceKey: 'id_cliente',
-});
+Prato.hasMany(Pedido, { foreignKey: 'id_prato' });
+Pedido.belongsTo(Prato, { foreignKey: 'id_prato' });
 
-Pedido.belongsTo(Prato, { 
-  foreignKey: 'id_prato' 
-});
+Cliente.hasMany(Pedido, { foreignKey: 'cliente_id' });
+Pedido.belongsTo(Cliente, { foreignKey: 'cliente_id' });
 
-Prato.hasMany(Pedido, {
-   foreignKey: 'id_prato' 
-});
-
-Pedido.belongsTo(Cliente, {
-   foreignKey: 'cliente_id' 
-});
-
-Cliente.hasMany(Pedido, {
-   foreignKey: 'cliente_id' 
-});
-
-app.get('/', (res) => {
-  res.status(200).json({message: "hello world"})
+app.get('/', (req, res) => {
+  return res.status(200).json({message: "hello world"})
 });
 
 (async () => {
   try {
   await sequelize.authenticate();
-  console.log('Connection has been established successfully.');
+  console.log('Conectado com sucesso.');
   await sequelize.sync({ alter: true }); // ou force: true em dev (mas apaga dados!)
   console.log('Tabelas sincronizadas com sucesso.');
 
@@ -66,6 +49,6 @@ app.get('/', (res) => {
     console.log(`Servidor online na porta ${PORT}`);
   });
 } catch (error) {
-  console.error('Unable to connect to the database:', error);
+  console.error('Não foi possível se conectar ao banco de dados:', error);
 }
 })();

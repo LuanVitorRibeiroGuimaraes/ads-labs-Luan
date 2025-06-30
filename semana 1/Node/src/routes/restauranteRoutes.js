@@ -4,24 +4,22 @@ const restauranteRouter = express.Router();
 const restauranteMiddleware = require('../middleware/restauranteMiddleware');
 const restauranteController = require('../controller/restauranteController');
 
-restauranteRouter.get('/valorGasto', restauranteController.relatorioMaiorValorGasto);
+restauranteRouter.get('/maisPedidosCliente', restauranteController.getClientesMaisPedidos);
 
-restauranteRouter.get('/maisPedidos', restauranteController.relatorioMaisPedidos);
+restauranteRouter.get('/maisPedidosPratos', restauranteController.getPratosMaisPedidos);
 
-restauranteRouter.get('/', restauranteController.getAllRestaurantes);
+restauranteRouter.get('/maisGastosClientes', restauranteController.getClientesMaisGastaram);
 
 restauranteRouter.get('/:id', restauranteController.getRestaurante);
 
 restauranteRouter.post('/', 
     restauranteMiddleware.nomeRestaurante,
     restauranteMiddleware.contatoRestaurante,
-    restauranteMiddleware.nomePrato,
     restauranteController.createRestaurante);
 
 restauranteRouter.put('/:id',  
     restauranteMiddleware.nomeRestaurante,
     restauranteMiddleware.contatoRestaurante,
-    restauranteMiddleware.nomePrato,
     restauranteController.updateRestaurante);
 
 restauranteRouter.delete('/:id', restauranteController.deleteRestaurante);

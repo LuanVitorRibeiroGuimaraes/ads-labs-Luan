@@ -17,7 +17,7 @@ const Prato = sequelize.define(
         valor: {
             type: DataTypes.DECIMAL,
             allowNull: false,
-        }
+        },
     },
     {
         tableName: 'pratos',

@@ -1,9 +1,8 @@
 const clienteService = require('../service/clienteService');
-const clienteRepository = require('../repository/clienteRepository');
 
 async function getAllClientes(req, res) {
     try {
-        const findAllClientes = await clienteRepository.getAllClientes();
+        const findAllClientes = await clienteService.getAllClientes();
         return res.status(200).json({ message: findAllClientes });
     } catch (error) {
         return res.status(500).json({
@@ -14,11 +13,11 @@ async function getAllClientes(req, res) {
 
 async function getCliente(req, res) {
     try {
-        const { id_cliente } = req.params;
+        const {id} = req.params;
 
-        const getUser = await clienteService.getCliente(id_cliente);
+        const getUser = await clienteService.getCliente(id);
         return res.status(200).json({
-            message: [getUser]
+            message: getUser
         });
     }
     catch(error) {
@@ -45,17 +44,10 @@ async function createCliente(req, res) {
 
 async function updateCliente(req, res) {
     try {
-        const {id_cliente} = req.params;
-        const { cpf, idade, nome } = req.body;
+        const {id} = req.params;
         const newData = req.body;
 
-        if(cpf || idade || nome) {
-            return res.status(400).json({
-                message: "Não é possível alterar, cpf, idade ou nome."
-            });
-        }
-
-        await clienteService.updateCliente(id_cliente, newData);
+        await clienteService.updateCliente(newData, id);
         return res.status(200).json({
             message: "Cliente atualizado com sucesso."
         })
@@ -68,7 +60,7 @@ async function updateCliente(req, res) {
 
 async function deleteCliente(req, res) {
     try {
-        const { id } = req.params;
+        const {id} = req.params;
 
         await clienteService.deleteCliente(id);
         return res.status(200).json({

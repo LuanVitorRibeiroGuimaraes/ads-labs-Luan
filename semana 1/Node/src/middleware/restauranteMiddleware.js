@@ -30,7 +30,7 @@ function contatoRestaurante(req, res, next) {
 
     if(!regexNumeroTelefone.test(contatoRestaurante)) {
         return res.status(400).json({
-            messae: "Digite somente números!"
+            message: "Digite somente números!"
         });
     }
 
@@ -43,26 +43,7 @@ function contatoRestaurante(req, res, next) {
     next();
 }
 
-function nomePrato(req, res, next) {
-    const nomePrato = req.body.nomePrato
-
-    if(!nomePrato) {
-        return res.status(400).json({
-            message: errorMapper('nomePrato', 'required')
-        });
-    }
-
-    if(nomePrato.length < 4 || nomePrato.length > 30) {
-        return res.status(400).json({
-            message: range('nomePrato', 4, 30)
-        });
-    }
-    
-    next();
-}
-
 module.exports = {
     nomeRestaurante,
     contatoRestaurante,
-    nomePrato,
 }

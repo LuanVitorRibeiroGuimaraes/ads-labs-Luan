@@ -1,6 +1,6 @@
 const Restaurante = require('../models/restaurante');
 
-async function getAllRestaurante() {
+async function getAllRestaurantes() {
     return await Restaurante.findAll();
 }
 
@@ -24,31 +24,8 @@ async function deleteRestaurante(id_restaurante) {
     return await Restaurante.destroy({where: {id_restaurante: id_restaurante}});
 }
 
-//gerar relatorios
-async function getRelatorioMaiorValorGasto() {
-    return await Restaurante.findAll({
-        include: {
-            model: Cliente,
-            order: ['qtdValorGasto', 'DESC'],
-            attributes: ['qtdValorGasto', 'nome', 'cpf', 'email']
-        }
-    });
-}
-
-async function getRelatorioMaisPedidos() {
-    return await Restaurante.findAll({
-        include: {
-            model: Cliente,
-            order: ['qtdPratosPedidos', 'DESC'],
-            attributes: ['qtdPratosPedidos','nome', 'cpf', 'email']
-        }
-    });
-}
-
 module.exports = {
-    getRelatorioMaiorValorGasto,
-    getRelatorioMaisPedidos,
-    getAllRestaurante,
+    getAllRestaurantes,
     getRestauranteById,
     getRestaurante,
     createRestaurante,
