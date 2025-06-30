@@ -1,0 +1,234 @@
+--ROTA DE CLIENTE--
+
+GET /clientes/all: Lista todos os clientes cadastrados
+{
+  "id_cliente": "",
+  "nome": "",
+  "idade": "",
+  "email": "",
+  "cpf": ""
+}
+- Retorna array de objetos (lista vazia se não houver registros)
+
+GET /clientes/:id_cliente: Busca cliente pelo ID
+{
+  "id_cliente": "",
+  "nome": "",
+  "idade": "",
+  "email": "",
+  "cpf": ""
+}
+- Retorna 404 se ID não existir
+- ID deve ser numérico
+
+POST /clientes: Cadastra novo cliente
+{
+  "nome": "",
+  "idade": "",
+  "email": "",
+  "cpf": ""
+}
+- Todos os campos são obrigatórios
+- Idade deve ser número inteiro positivo
+- CPF deve ter 11 dígitos (sem pontuação)
+- Email deve ter formato válido
+
+PUT /clientes/:id_cliente: Atualiza cliente
+{
+  "nome": "",
+  "idade": "",
+  "email": ""
+}
+- Não permite atualização de CPF
+- ID na URL deve existir
+
+DELETE /clientes/:id_cliente: Remove cliente permanentemente
+{
+  "mensagem": "Cliente ID {id} removido"
+}
+- Exclusão física do registro
+- Retorna 404 se ID não existir
+
+________________________________________________________________________________________________
+
+--ROTA DE PEDIDO--
+
+GET /pedidos/all: Lista todos os pedidos cadastrados
+{
+  "pedidos": [
+    {
+      "id_pedido": "",
+      "id_restaurante": "",
+      "prato_id": "",
+      "cliente_id": ""
+    }
+  ]
+}
+- Retorna array vazio se não houver pedidos
+
+GET /pedidos/:id_pedido: Busca um pedido específico pelo ID
+{
+  "id_pedido": "",
+  "id_restaurante": "",
+  "prato_id": "",
+  "cliente_id": ""
+}
+- Retorna 404 se o pedido não existir
+- ID deve ser numérico
+
+POST /pedidos: Cria um novo pedido
+{
+  "id_restaurante": "",
+  "prato_id": "",
+  "cliente_id": ""
+}
+- Todos os campos são obrigatórios
+- ID do restaurante deve existir na tabela restaurantes
+- ID do prato deve existir na tabela pratos
+- ID do cliente deve existir na tabela clientes
+
+PUT /pedidos/:id_pedido: Atualiza um pedido existente
+{
+  "id_restaurante": "",
+  "prato_id": "",
+  "cliente_id": ""
+}
+- Todos os campos são obrigatórios na atualização
+- Não permite alterar o id_pedido
+- Verifica existência dos IDs relacionados
+
+DELETE /pedidos/:id_pedido: Remove um pedido permanentemente
+{
+  "mensagem": "Pedido ID {id_pedido} removido com sucesso"
+}
+- Exclusão física do registro
+- Retorna 404 se o pedido não existir
+
+________________________________________________________________________________________________
+
+--ROTA DE PRATOS--
+
+GET /pratos/all: Lista todos os pratos cadastrados
+{
+  "pratos": [
+    {
+      "id_prato": "",
+      "nome": "",
+      "valor": ""
+    }
+  ]
+}
+- Retorna array vazio se não houver pratos cadastrados
+- Valor é do tipo decimal (ex: 19.99)
+
+GET /pratos/:id_prato: Busca um prato específico pelo ID
+{
+  "id_prato": "",
+  "nome": "",
+  "valor": ""
+}
+- Retorna 404 se o prato não existir
+- ID deve ser numérico
+
+POST /pratos: Cadastra um novo prato
+{
+  "nome": "",
+  "valor": ""
+}
+- Todos os campos são obrigatórios
+- Nome deve ter pelo menos 3 caracteres
+- Valor deve ser numérico positivo
+- Não permite duplicação de nomes
+
+PUT /pratos/:id_prato: Atualiza um prato existente
+{
+  "nome": "",
+  "valor": ""
+}
+- Pode atualizar nome, valor ou ambos
+- Validações são as mesmas do POST
+- Retorna 404 se ID não existir
+
+DELETE /pratos/:id_prato: Remove um prato permanentemente
+{
+  "mensagem": "Prato ID {id_prato} removido com sucesso"
+}
+- Exclusão física do registro
+- Retorna 404 se o prato não existir
+- Verifica se prato não está vinculado a pedidos ativos
+
+________________________________________________________________________________________________
+
+--ROTA DE RESTAURANTE--
+
+GET /restaurante/maisPedidosCliente: Lista clientes que mais fizeram pedidos
+{
+  "clientes": [
+    {
+      "id_cliente": "",
+      "nome": "",
+      "total_pedidos": ""
+    }
+  ]
+}
+- Ordenado por quantidade de pedidos (decrescente)
+- Retorna top 10 clientes por padrão
+
+GET /restaurante/maisPedidosPratos: Lista pratos mais pedidos
+{
+  "pratos": [
+    {
+      "id_prato": "",
+      "nome": "",
+      "total_pedidos": ""
+    }
+  ]
+}
+- Ordenado por quantidade de pedidos (decrescente)
+- Retorna top 10 pratos por padrão
+
+GET /restaurante/maisGastosClientes: Lista clientes que mais gastaram
+{
+  "clientes": [
+    {
+      "id_cliente": "",
+      "nome": "",
+      "total_gasto": ""
+    }
+  ]
+}
+- Ordenado por valor total gasto (decrescente)
+- Valor em formato decimal (ex: 150.75)
+
+GET /restaurante/:id_restaurante: Busca restaurante pelo ID
+{
+  "id_restaurante": "",
+  "nomeRestaurante": "",
+  "contatoRestaurante": ""
+}
+- Retorna 404 se restaurante não existir
+- Contato pode ser telefone ou email
+
+POST /restaurante: Cadastra novo restaurante
+{
+  "nomeRestaurante": "",
+  "contatoRestaurante": ""
+}
+- Todos os campos são obrigatórios
+- Nome deve ser único no sistema
+- Contato deve ter pelo menos 8 caracteres
+
+PUT /restaurante/:id_restaurante: Atualiza restaurante
+{
+  "nomeRestaurante": "",
+  "contatoRestaurante": ""
+}
+- Pode atualizar um ou ambos os campos
+- Validações são as mesmas do POST
+
+DELETE /restaurante/:id_restaurante: Remove restaurante
+{
+  "mensagem": "Restaurante ID {id_restaurante} removido com sucesso"
+}
+- Exclusão física do registro
+- Verifica se não há pedidos vinculados
