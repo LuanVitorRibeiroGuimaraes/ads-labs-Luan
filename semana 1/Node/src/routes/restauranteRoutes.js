@@ -10,6 +10,8 @@ restauranteRouter.get('/maisPedidosPratos', restauranteController.getPratosMaisP
 
 restauranteRouter.get('/maisGastosClientes', restauranteController.getClientesMaisGastaram);
 
+restauranteRouter.get('/all', restauranteController.getAllRestaurantes);
+
 restauranteRouter.get('/:id', restauranteController.getRestaurante);
 
 restauranteRouter.post('/', 
