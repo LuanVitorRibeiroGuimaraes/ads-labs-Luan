@@ -1,0 +1,14 @@
+## install tailwind:
+    - npm install tailwindcss @tailwindcss/postcss postcss --force
+    ## Conteúdo do arquivo .postcssrc.json (criar o .postcssrc.json ):
+        {
+            "plugins": {
+                "@tailwindcss/postcss": {}
+            }
+        }
+
+    ## Importar tailwind no css
+        @import "tailwindcss";
+
+## install angular 19:
+    # npm install -g @angular/cli@19
