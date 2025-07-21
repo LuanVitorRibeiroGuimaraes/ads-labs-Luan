@@ -48,18 +48,6 @@ async function getRestaurante(req, res) {
     }
 }
 
-async function createRestaurante(req, res) {
-    try {
-        const data = req.body;
-
-        await restauranteService.createRestaurante(data);
-
-        return res.status(201).json({message: "Restaurante criado com sucesso."});
-    } catch (error) {
-        return res.status(400).json({message: error.message});
-    }
-}
-
 async function updateRestaurante(req, res) {
     try {
         const {id} = req.params;
@@ -72,25 +60,11 @@ async function updateRestaurante(req, res) {
     }
 }
 
-async function deleteRestaurante(req, res) {
-    try {
-        const {id} = req.params;
-
-        await restauranteService.deleteRestaurante(id);
-        
-        return res.status(200).json({message: `Restaurante id:${id} foi deletado com sucesso.`}); 
-    } catch (error) {
-        return res.status(400).json({message: error.message});
-    }
-}
-
 module.exports = {
     getClientesMaisPedidos,
     getPratosMaisPedidos,
     getClientesMaisGastaram,
     getAllRestaurantes,
     getRestaurante,
-    createRestaurante,
     updateRestaurante,
-    deleteRestaurante,
 }

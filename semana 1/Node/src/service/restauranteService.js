@@ -68,28 +68,6 @@ async function getRestaurante(id_restaurate) {
     return findRestaurante;
 }
 
-async function createRestaurante(data) {
-
-    const findNomeRestaurante = await restauranteRepository.getRestaurante({nomeRestaurante: data.nomeRestaurante});
-    const findContatoRestaurante = await restauranteRepository.getRestaurante({contatoRestaurante: data.contatoRestaurante});
-
-    if (findNomeRestaurante) {
-        throw new Error('Este nome já está em uso.');
-    }
-
-    if(findContatoRestaurante) {
-      throw new Error('Este numero já está em uso');
-    }
-
-    const createRestaurante = await restauranteRepository.createRestaurante(data);
-
-    if (!createRestaurante) {
-        throw new Error('Não foi possível criar o restaurante.');
-    }
-
-    return createRestaurante;
-}
-
 async function updateRestaurante(data, id_restaurante) {
     const findRestaurante = await restauranteRepository.getRestauranteById(id_restaurante);
 
@@ -106,21 +84,6 @@ async function updateRestaurante(data, id_restaurante) {
     return {message: "Atualização realizada com sucesso."};
 }
 
-async function deleteRestaurante(id_restaurante) {
-    const findRestaurante = await restauranteRepository.getRestauranteById(id_restaurante);
-
-    if (!findRestaurante) {
-        throw new Error('Restaurante não encontrado.');
-    }
-
-    const deletedRestaurante = await restauranteRepository.deleteRestaurante(id_restaurante);
-
-    if(deletedRestaurante === 0) {
-        throw new Error("Não foi possível deletar o restaurante");
-    }
-
-    return deletedRestaurante;
-}
 
 module.exports = {
     relatorioClienteMaisPedidos,
@@ -128,7 +91,5 @@ module.exports = {
     clientesQueMaisGastaram,
     getAllRestaurantes,
     getRestaurante,
-    createRestaurante,
     updateRestaurante,
-    deleteRestaurante,
 };
