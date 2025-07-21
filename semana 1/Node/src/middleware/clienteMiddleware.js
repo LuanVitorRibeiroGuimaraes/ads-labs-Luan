@@ -91,6 +91,31 @@ function cpf(req, res, next) {
     next();
 }
 
+// function numeroTelefone(req, res, next) {
+//     const  numeroTelefone = req.body.numeroTelefone;
+//     const regexNumeroTelefone = /^[0-9]+$/;
+
+//     if (!numeroTelefone) {
+//         return res.status(400).json({
+//             message: errorMapper('required', 'numeroTelefone')
+//         });
+//     }
+
+//     if(!regexNumeroTelefone.test(numeroTelefone)) {
+//         return res.status(400).json({
+//             message: "O telefone deve conter somente números!"
+//         });
+//     }
+
+//     if (numeroTelefone.length < 11) {
+//         return res.status(400).json({
+//             message: "O numero de telefone deve conter 11 caracteres (dd + nono dígito + número)"
+//         });
+//     }
+
+//     next();
+// }
+
 function email(req, res, next) {
     const email = req.body.email;
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -110,25 +135,68 @@ function email(req, res, next) {
     next();
 }
 
-function numeroTelefone(req, res, next) {
-    const  numeroTelefone = req.body.numeroTelefone;
-    const regexNumeroTelefone = /^[0-9]+$/;
+function senha(req, res, next) {
+    const senha = req.body.senha;
 
-    if (!numeroTelefone) {
+    if(!senha) {
         return res.status(400).json({
-            message: errorMapper('required', 'numeroTelefone')
+            message: errorMapper('senha', 'required')
         });
     }
 
-    if(!regexNumeroTelefone.test(numeroTelefone)) {
+    if(senha.length < 8) {
         return res.status(400).json({
-            message: "O telefone deve conter somente números!"
+            message: range('senha', 8, 16)
+        });
+    }
+}
+
+function validateData(req, res, next) {
+    const nome = req.body.nome;
+    const idade = req.body.idade;
+    const cpf = req.body.cpf;
+    const email = req.body.email;
+    const senha = req.body.senha;
+
+    if(!nome) {
+        return res.status(400).json({
+            message: errorMapper('nome', 'required')
         });
     }
 
-    if (numeroTelefone.length < 11) {
+    if(!idade) {
         return res.status(400).json({
-            message: "O numero de telefone deve conter 11 caracteres (dd + nono dígito + número)"
+            message: errorMapper('idade', 'required')
+        });
+    }
+
+    if(!cpf) {
+        return res.status(400).json({
+            message: errorMapper('cpf', 'required')
+        });
+    }
+
+    if(!email) {
+        return res.status(400).json({
+            message: errorMapper('email', 'required')
+        });
+    }
+
+    if(!senha) {
+        return res.status(400).json({
+            message: errorMapper('senha', 'required')
+        });
+    }
+
+    next();
+}
+
+function validateId(req, res, next) {
+    const id = req.params.id;
+
+    if(!id) {
+        return res.status(400).json({
+            message: errorMapper('id', 'required')
         });
     }
 
@@ -139,6 +207,9 @@ module.exports = {
     nome,
     idade,
     cpf,
+    senha,
     email,
-    numeroTelefone,
+    validateData,
+    validateId,
+    // numeroTelefone,
 }

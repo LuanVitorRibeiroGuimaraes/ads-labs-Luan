@@ -59,14 +59,10 @@ async function getAllRestaurantes() {
 }
 
 async function getRestaurante(id_restaurate) {
-    if(!id_restaurate) {
-        throw new Error("O ID do restaurante é obrigatório")
-    }
-
     const findRestaurante = await restauranteRepository.getRestauranteById(id_restaurate)
 
     if (!findRestaurante) {
-        throw new Error('Restaurante não encontrado.');
+      throw new Error('Restaurante não encontrado.');
     }
 
     return findRestaurante;
@@ -95,11 +91,6 @@ async function createRestaurante(data) {
 }
 
 async function updateRestaurante(data, id_restaurante) {
-
-    if(!id_restaurante) {
-        throw new Error("O ID do restaurante é obrigatório");
-    }
-
     const findRestaurante = await restauranteRepository.getRestauranteById(id_restaurante);
 
     if (!findRestaurante) {
@@ -116,11 +107,6 @@ async function updateRestaurante(data, id_restaurante) {
 }
 
 async function deleteRestaurante(id_restaurante) {
-    
-    if(!id_restaurante) {
-        throw new Error("O ID do restaurante é obrigatório");
-    }
-
     const findRestaurante = await restauranteRepository.getRestauranteById(id_restaurante);
 
     if (!findRestaurante) {

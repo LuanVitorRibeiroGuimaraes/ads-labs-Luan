@@ -11,14 +11,10 @@ async function getAllClientes() {
 }
 
 async function getCliente(id_cliente) {
-    if (!id_cliente) {
-        throw new Error("O ID do cliente é obrigatório.");
-    }
-
     const findCliente = await clienteRepository.getClienteById(id_cliente);
 
     if (!findCliente) {
-        throw new Error("Cliente não encontrado");
+        throw new Error("Cliente não encontrado.");
     }
 
     return findCliente;
@@ -62,10 +58,6 @@ async function updateCliente(newData, id_cliente) {
 }
 
 async function deleteCliente(id_cliente) {
-    if (!id_cliente) {
-        throw new Error("O ID do cliente é obrigatório.");
-    }
-
     const findCliente = await clienteRepository.getClienteById(id_cliente);
 
     if (!findCliente) {

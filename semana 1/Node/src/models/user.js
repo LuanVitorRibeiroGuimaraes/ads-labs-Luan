@@ -1,8 +1,8 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../database');
 
-const Prato = sequelize.define(
-    'Prato',
+const User = sequelize.define(
+    'User',
     {
         id: {
             type: DataTypes.INTEGER,
@@ -10,18 +10,22 @@ const Prato = sequelize.define(
             primaryKey: true,
             autoIncrement: true,
         },
-        nome: {
+        email: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        valor: {
-            type: DataTypes.DECIMAL,
+        senha: {
+            type: DataTypes.STRING,
             allowNull: false,
         },
+        role: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        }
     },
     {
-        tableName: 'pratos',
-    }
+        tableName: 'users',
+    },
 )
 
-module.exports = { Prato };
+module.exports = { User };

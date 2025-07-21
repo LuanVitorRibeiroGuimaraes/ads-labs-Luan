@@ -7,18 +7,25 @@ const pratoController = require('../controller/pratoController');
 
 pratoRouter.get('/all', pratoController.getAllPratos);
 
-pratoRouter.get('/:id', pratoController.getPrato);
+pratoRouter.get('/:id', 
+    pratoMiddleware.validateId,
+    pratoController.getPrato);
 
 pratoRouter.post('/', 
+    pratoMiddleware.validateData,
     pratoMiddleware.nome,
     pratoMiddleware.valor,
     pratoController.createPrato);
 
 pratoRouter.put('/:id', 
+    pratoMiddleware.validateId,
+    pratoMiddleware.validateData,
     pratoMiddleware.nome,
     pratoMiddleware.valor,
     pratoController.updatePrato);
 
-pratoRouter.delete('/:id', pratoController.deletePrato);
+pratoRouter.delete('/:id', 
+    pratoMiddleware.validateId,
+    pratoController.deletePrato);
 
 module.exports = pratoRouter;

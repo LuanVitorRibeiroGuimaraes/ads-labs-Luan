@@ -6,10 +6,6 @@ async function getAllPratos() {
 }
 
 async function getPrato(id_prato) {
-    if(!id_prato) {
-        throw new Error("O ID é obrigatório.");
-    }
-
     const findPrato = await pratoRepository.getPratoById(id_prato);
 
     if(!findPrato) {
@@ -18,11 +14,7 @@ async function getPrato(id_prato) {
 
     return findPrato;
 }
-async function createPrato(data) {
-    if(!data) {
-        throw new Error("Dados não informados");
-    }
-    
+async function createPrato(data) {    
     const pratoExistente = await pratoRepository.getPrato({nome: data.nome});
 
     if(pratoExistente) {

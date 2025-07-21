@@ -5,7 +5,7 @@ async function getAllClientes(req, res) {
         const findAllClientes = await clienteService.getAllClientes();
         return res.status(200).json({ message: findAllClientes });
     } catch (error) {
-        return res.status(500).json({
+        return res.status(404).json({
             message: error.message
         });
     }
@@ -21,7 +21,7 @@ async function getCliente(req, res) {
         });
     }
     catch(error) {
-        return res.status(500).json({
+        return res.status(404).json({
             message: "Não foi possível encontrar o cliente"
         });
     }
@@ -68,7 +68,7 @@ async function deleteCliente(req, res) {
         });
     } catch (error) {
         return res.status(400).json({
-            message: "Não foi possível deletar o cliente"
+            message: error.message
         });
     }
 }

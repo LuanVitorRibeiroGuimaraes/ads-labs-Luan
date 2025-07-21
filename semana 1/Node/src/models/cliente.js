@@ -4,7 +4,7 @@ const { sequelize } = require('../../database');
 const Cliente = sequelize.define(
     'Cliente',
     {
-        id_cliente: {
+        id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
@@ -18,11 +18,15 @@ const Cliente = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        cpf: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         email: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        cpf: {
+        senha: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -32,6 +36,4 @@ const Cliente = sequelize.define(
     }
 );
 
-
-
-module.exports = Cliente;
+module.exports = { Cliente };

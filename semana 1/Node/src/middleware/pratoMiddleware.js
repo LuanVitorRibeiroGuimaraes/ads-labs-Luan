@@ -43,7 +43,40 @@ function valor(req, res, next) {
     next();
 }
 
+function validateData(req, res, next) {
+    const nome = req.body.nome;
+    const valor = req.body.valor;
+
+    if(!nome) {
+        return res.status(400).json({
+            message: errorMapper('nome', 'required')
+        });
+    }
+
+    if(!valor) {
+        return res.status(400).json({
+            message: errorMapper('valor', 'required')
+        });
+    }
+
+    next();
+}
+
+function validateId(req, res, next) {
+    const id = req.params.id;
+
+    if(!id) {
+        return res.status(400).json({
+            message: errorMapper('id', 'required')
+        });
+    }
+
+    next();
+}
+
 module.exports = {
     nome, 
     valor,
+    validateData,
+    validateId,
 }

@@ -1,30 +1,74 @@
 const { errorMapper } = require('../shared/SchemaValidationHelper');
 
-async function id_restaurante(req, res, next) {
+function id_restaurante(req, res, next) {
     const {id_restaurante} = req.body;
 
     if(!id_restaurante) {
-        throw new Error(errorMapper('id_restaurante', 'required'));
+        return res.status(400).json({
+            message: errorMapper('id_restaurante', 'required')
+        });
     }
 
     next();
 }
 
-async function prato_id(req, res, next) {
+function prato_id(req, res, next) {
     const {prato_id} = req.body;
 
     if(!prato_id) {
-        throw new Error(errorMapper('prato_id', 'required'));
+        return res.status(400).json({
+            message: errorMapper('prato_id', 'required')
+        });
     }
 
     next();
 }
 
-async function cliente_id(req, res, next) {
-    const {id_restaurante} = req.body;
+function cliente_id(req, res, next) {
+    const {cliente_id} = req.body;
 
     if(!cliente_id) {
-        throw new Error(errorMapper('cliente_id', 'required'));
+        return res.status(400).json({
+            message: errorMapper('cliente_id', 'required')
+        });
+    }
+
+    next();
+}
+
+function validateData(req, res, next) {
+    const { id_restaurante } = req.body;
+    const { prato_id } = req.body;
+    const { cliente_id } = req.body;
+
+    if(!id_restaurante) {
+        return res.status(400).json({
+            message: errorMapper('id_restaurante', 'required')
+        });
+    }
+
+    if(!prato_id) {
+        return res.status(400).json({
+            message: errorMapper('prato_id', 'required')
+        });
+    }
+
+    if(!cliente_id) {
+        return res.status(400).json({
+            message: errorMapper('cliente_id', 'required')
+        });
+    }
+
+    next();
+}
+
+function validateId(req, res, next) {
+    const id = req.params.id;
+
+    if(!id) {
+        return res.status(400).json({
+            message: errorMapper('id', 'required')
+        });
     }
 
     next();
@@ -34,4 +78,6 @@ module.exports = {
     id_restaurante,
     prato_id,
     cliente_id,
+    validateData,
+    validateId,
 }

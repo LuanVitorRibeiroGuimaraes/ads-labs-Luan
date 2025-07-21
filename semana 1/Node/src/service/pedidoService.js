@@ -9,10 +9,6 @@ async function getAllPedidos() {
 }
 
 async function getPedido(id_pedido) {
-    if (!id_pedido) {
-        throw new Error("O ID do pedido é obrigatório.");
-    }
-    
     const findPedido = await pedidoRepository.getPedidoById(id_pedido);
     
     if (!findPedido) {
@@ -23,10 +19,6 @@ async function getPedido(id_pedido) {
 }
 
 async function createPedido(data) {
-    if (!data) {
-        throw new Error("Os dados são obrigatórios.");
-    }
-
     const restaurante = await restauranteRepository.getRestauranteById(data.id_restaurante);
     const cliente = await clienteRepository.getClienteById(data.cliente_id);
 
@@ -48,14 +40,6 @@ async function createPedido(data) {
 }
 
 async function updatePedido(newData, id_pedido) {
-    if (!id_pedido) {
-        throw new Error("O ID deve ser informado.");
-    }
-    
-    if (!newData) {
-        throw new Error("Os novos dados devem ser informados.");
-    }
-
     const findPedido = await pedidoRepository.getPedidoById(id_pedido);
 
     if (!findPedido) {
@@ -72,10 +56,6 @@ async function updatePedido(newData, id_pedido) {
 }
 
 async function deletePedido(id_pedido) {
-    if (!id_pedido) {
-        throw new Error("O ID do pedido é obrigatório.");
-    }
-
     const findPedido = await getPedido(id_pedido);
 
     if (!findPedido) {

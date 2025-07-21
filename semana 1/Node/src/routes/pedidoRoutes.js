@@ -7,20 +7,27 @@ const pedidoController = require('../controller/pedidoController');
 
 pedidoRouter.get('/all', pedidoController.getAllPedidos);
 
-pedidoRouter.get('/:id', pedidoController.getPedidos);
+pedidoRouter.get('/:id', 
+    pedidoMiddleware.validateId,
+    pedidoController.getPedidos);
 
-pedidoRouter.post('/', 
+pedidoRouter.post('/',
+    pedidoMiddleware.validateData,
     pedidoMiddleware.id_restaurante,
     pedidoMiddleware.prato_id,
     pedidoMiddleware.cliente_id,
     pedidoController.createPedido);
 
-pedidoRouter.put('/:id', 
+pedidoRouter.put('/:id',
+    pedidoMiddleware.validateId,
+    pedidoMiddleware.validateData,
     pedidoMiddleware.id_restaurante,
     pedidoMiddleware.prato_id,
     pedidoMiddleware.cliente_id,
     pedidoController.updatePedido);
 
-pedidoRouter.delete('/:id', pedidoController.deletePedido);
+pedidoRouter.delete('/:id', 
+    pedidoMiddleware.validateId,
+    pedidoController.deletePedido);
 
 module.exports = pedidoRouter;

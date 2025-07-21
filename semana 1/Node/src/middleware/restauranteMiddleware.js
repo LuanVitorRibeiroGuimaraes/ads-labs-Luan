@@ -43,7 +43,40 @@ function contatoRestaurante(req, res, next) {
     next();
 }
 
+function validateData(req, res, next) {
+    const nomeRestaurante = req.body.nomeRestaurante;
+    const contatoRestaurante = req.body.nomeRestaurante;
+
+    if(!nomeRestaurante) {
+        return res.status(400).json({
+            message: errorMapper('nomeRestaurante', 'required')
+        });
+    }
+
+    if(!contatoRestaurante) {
+        return res.status(400).json({
+            message: errorMapper('contatoRestaurante', 'required')
+        });
+    }
+
+    next();
+}
+
+function validateId(req, res, next) {
+    const id = req.params.id;
+
+    if(!id) {
+        return res.status(400).json({
+            message: errorMapper('id', 'required')
+        });
+    }
+
+    next();
+}
+
 module.exports = {
     nomeRestaurante,
     contatoRestaurante,
+    validateData,
+    validateId,
 }

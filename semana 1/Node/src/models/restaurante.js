@@ -4,7 +4,7 @@ const { sequelize } = require('../../database');
 const Restaurante = sequelize.define(
     'Restaurante',
     {
-        id_restaurante: {
+        id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
@@ -24,4 +24,4 @@ const Restaurante = sequelize.define(
     }
 );
 
-module.exports = Restaurante;
+module.exports = { Restaurante };
