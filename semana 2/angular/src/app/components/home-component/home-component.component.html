@@ -1,0 +1,29 @@
+<section class="h-screen flex flex-col justify-center items-center text-center gap-6">
+  <h1 class="text-[46px]">
+    Home
+  </h1>
+
+  <div class="flex gap-5">
+    <button (click)="goToCliente()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
+      Área do Cliente
+    </button>
+    <button (click)="goToRestaurante()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
+      Área de Gerenciamento
+    </button>
+  </div>
+</section>
+
+<app-footer-component></app-footer-component>
+
+<!--
+anotações p entender
+h-screen: faz a seção ocupar 100% da altura da tela.
+
+flex: transforma a <section> em um contêiner flexível.
+
+flex-col: alinha os filhos (o h1 e os botões) verticalmente.
+
+justify-center: centraliza verticalmente.
+
+items-center: centraliza horizontalmente.
+-->

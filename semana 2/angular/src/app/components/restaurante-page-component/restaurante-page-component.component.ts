@@ -1,0 +1,33 @@
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { FooterComponentComponent } from '../footer-component/footer-component.component';
+import { HeaderComponentComponent } from '../header-component/header-component.component';
+
+@Component({
+  selector: 'app-restaurante-page-component',
+  imports: [FooterComponentComponent, HeaderComponentComponent],
+  templateUrl: './restaurante-page-component.component.html',
+  styleUrl: './restaurante-page-component.component.css'
+})
+export class RestaurantePageComponentComponent {
+  constructor(private router:Router) {}
+  goToData() {
+    this.router.navigate(['restauranteData']);
+  }
+
+  updateRestaurante() {
+    this.router.navigate(['manageRestaurante']);
+  }
+
+  clientesMaisPedidos() {
+    this.router.navigate(['clientesMaisPedidos']);
+  }
+
+  clientesMaisGastos() {
+    this.router.navigate(['clientesMaisGastos']);
+  }
+
+  pratosMaisPedidos() {
+    this.router.navigate(['pratosMaisPedidos']);
+  }
+}

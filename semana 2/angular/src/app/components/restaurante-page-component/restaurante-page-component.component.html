@@ -1,0 +1,51 @@
+<app-header-component></app-header-component>
+<section class="h-screen flex flex-col justify-center items-center">
+    <div class="grid place-content-center gap-4">
+        <h1 class="text-[46px] m-10">
+            Área de gerenciamento do Restaurante
+        </h1>
+
+        <div class="flex gap-5 justify-center itens-center">
+            <div>
+                <button (click)="pratosMaisPedidos()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
+                    Pratos mais pedidos
+                </button>
+            </div>
+            <div>
+                <button (click)="clientesMaisPedidos()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
+                    Clientes que mais pediram
+                </button>
+            </div>
+            <div>
+                <button (click)="clientesMaisGastos()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
+                    Clientes que mais gastaram
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="flex place-content-center gap-4 m-4">
+      <div>
+          <button (click)="updateRestaurante()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
+              Editar Restaurante
+          </button>
+      </div>
+      <div >
+          <button (click)="goToData()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
+              Ver dados
+          </button>
+      </div>
+    </div>
+</section>
+<app-footer-component></app-footer-component>
+
+<!--
+h-screen: faz a seção ocupar 100% da altura da tela.
+
+flex: transforma a <section> em um contêiner flexível.
+
+flex-col: alinha os filhos (o h1 e os botões) verticalmente.
+
+justify-center: centraliza verticalmente.
+
+items-center: centraliza horizontalmente.
+-->

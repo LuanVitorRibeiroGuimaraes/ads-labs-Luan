@@ -1,0 +1,44 @@
+<section class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md">
+  <h2 class="text-lg font-semibold text-gray-700 ">Realizar Pedido</h2>
+
+  <form>
+    <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+      <div>
+        <label class="text-gray-700" for="username">Cliente</label>
+        <select class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-blue-500 rounded-md focus:border-blue-500 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring text-gray-700" name="" id="">
+          <option value="" selected disabled>--Selecione o cliente--</option>
+          <option value="">1</option>
+          <option value="">2</option>
+          <option value="">3</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="text-gray-700" for="username">Item</label>
+        <select class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-blue-500 rounded-md focus:border-blue-500 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring text-gray-700" name="" id="">
+          <option value="" selected disabled>--Selecione o item--</option>
+          <option value="">1</option>
+          <option value="">2</option>
+          <option value="">3</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="text-gray-700" for="idade">Quantidade</label>
+        <input id="idade" type="number" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-blue-500 rounded-md focus:border-blue-500 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring">
+      </div>
+    </div>
+
+    <div class="flex justify-end mt-6">
+      <button class="cursor-pointer px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:bg-gray-600">Fazer pedido</button>
+    </div>
+
+    <div class="flex justify-end mt-6">
+    </div>
+    <div class="flex justify-end">
+      <button (click)="backHome()" class="cursor-pointer px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-red-700 rounded-md hover:bg-red-500 focus:outline-none focus:bg-gray-600">Cancelar</button>
+    </div>
+  </form>
+
+</section>
+<app-footer-component></app-footer-component>

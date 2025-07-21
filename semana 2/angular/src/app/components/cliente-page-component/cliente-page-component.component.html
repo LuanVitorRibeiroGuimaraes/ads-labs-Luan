@@ -1,0 +1,56 @@
+<app-header-component></app-header-component>
+<section class="h-screen flex flex-col justify-center items-center">
+    <div class="grid place-content-center gap-4">
+        <h1 class="text-[46px] m-10">
+            Área de gerenciamento do cliente
+        </h1>
+
+        <div class="flex gap-5 justify-center itens-center">
+            <div>
+                <button (click)="placeAnOrder()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
+                    Fazer pedido
+                </button>
+            </div>
+            <div>
+                <button (click)="goToOrders()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
+                    Ver pedidos
+                </button>
+            </div>
+            <div>
+                <button (click)="goToData()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
+                    Ver Dados
+                </button>
+            </div>
+            <div>
+                <button (click)="registerUser()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
+                    Cadastrar Cliente
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="flex place-content-center gap-4 m-4">
+      <div>
+          <button (click)="updateUser()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
+              Editar Cliente
+          </button>
+      </div>
+      <div >
+          <button (click)="deleteUser()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
+              Deletar Cliente
+          </button>
+      </div>
+    </div>
+</section>
+<app-footer-component></app-footer-component>
+
+<!--
+h-screen: faz a seção ocupar 100% da altura da tela.
+
+flex: transforma a <section> em um contêiner flexível.
+
+flex-col: alinha os filhos (o h1 e os botões) verticalmente.
+
+justify-center: centraliza verticalmente.
+
+items-center: centraliza horizontalmente.
+-->

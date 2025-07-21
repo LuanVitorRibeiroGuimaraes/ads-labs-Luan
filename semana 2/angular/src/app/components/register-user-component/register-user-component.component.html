@@ -1,0 +1,45 @@
+<section class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md">
+  <h2 class="text-lg font-semibold text-gray-700 ">Cadastro de cliente</h2>
+
+  <form>
+    <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+      <div>
+        <label class="text-gray-700" for="username">Nome</label>
+        <input id="username" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-blue-500 rounded-md focus:border-blue-500 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring">
+      </div>
+
+      <div>
+        <label class="text-gray-700" for="idade">Idade</label>
+        <input id="idade" type="number" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-blue-500 rounded-md focus:border-blue-500 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring">
+      </div>
+
+      <div>
+        <label class="text-gray-700" for="cpf">CPF</label>
+        <input id="cpf" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-blue-500 rounded-md focus:border-blue-500 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring">
+      </div>
+
+      <div>
+        <label class="text-gray-700" for="email">Email</label>
+        <input id="email" type="email" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-blue-500 rounded-md focus:border-blue-500 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring">
+      </div>
+
+      <div>
+        <label class="text-gray-700" for="senha">Senha</label>
+        <input id="senha" type="password" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-blue-500 rounded-md focus:border-blue-500 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring">
+      </div>
+
+      <div>
+        <label class="text-gray-700" for="confirmarSenha">Confirmar senha</label>
+        <input id="confirmarSenha" type="password" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-blue-500 rounded-md focus:border-blue-500 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring">
+      </div>
+    </div>
+
+    <div class="flex justify-end mt-6">
+      <button class="cursor-pointer px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:bg-gray-600">Registrar</button>
+    </div>
+
+    <div class="flex justify-end mt-6">
+      <button (click)="backHome()" class="cursor-pointer px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-red-700 rounded-md hover:bg-red-500 focus:outline-none focus:bg-gray-600">Cancelar</button>
+    </div>
+  </form>
+</section>
