@@ -1,4 +1,4 @@
-const Restaurante = require('../models/restaurante');
+const { Restaurante } = require('../models/restaurante');
 
 async function getAllRestaurantes() {
     return await Restaurante.findAll();
@@ -16,12 +16,12 @@ async function createRestaurante(data) {
     return await Restaurante.create(data);
 }
 
-async function updateRestaurante(newData, id_restaurante) {
-    return await Restaurante.update(newData, {where: {id_restaurante: id_restaurante}});
+async function updateRestaurante(newData, id) {
+    return await Restaurante.update(newData, {where: {id: id}});
 }
 
-async function deleteRestaurante(id_restaurante) {
-    return await Restaurante.destroy({where: {id_restaurante: id_restaurante}});
+async function deleteRestaurante(id) {
+    return await Restaurante.destroy({where: {id: id}});
 }
 
 module.exports = {

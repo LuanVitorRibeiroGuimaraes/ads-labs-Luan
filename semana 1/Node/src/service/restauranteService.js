@@ -4,13 +4,13 @@ const restauranteRepository = require('../repository/restauranteRepository');
 async function relatorioClienteMaisPedidos() {
   return (await sequelize.query(`
     SELECT 
-      c.nome, COUNT(p.id_pedido) AS qtd_pedidos
+      c.nome, COUNT(p.id) AS qtd_pedidos
     FROM 
       clientes c 
     JOIN 
-      pedidos p ON c.id_cliente = p.cliente_id 
+      pedidos p ON c.id = p.id_cliente 
     GROUP BY 
-      c.id_cliente, c.nome 
+      c.id, c.nome 
     ORDER BY 
       qtd_pedidos DESC 
     LIMIT 5
@@ -20,13 +20,13 @@ async function relatorioClienteMaisPedidos() {
 async function pratosMaisPedidos() {
     const resultado = (await sequelize.query(`
       SELECT
-        pr.nome, COUNT(pe.id_pedido) AS qtd_pedidos
+        pr.nome, COUNT(pe.id) AS qtd_pedidos
       FROM
         pratos pr
       JOIN
-        pedidos pe ON pr.id_prato = pe.prato_id
+        pedidos pe ON pr.id = pe.id_prato
       GROUP BY
-        pr.id_prato, pr.nome
+        pr.id, pr.nome
       ORDER BY
         qtd_pedidos DESC
     `))[0];
@@ -41,11 +41,11 @@ async function clientesQueMaisGastaram() {
       FROM
         clientes c
       JOIN
-        pedidos ped ON c.id_cliente = ped.cliente_id
+        pedidos ped ON c.id = ped.id_cliente
       JOIN
-        pratos pr ON ped.prato_id = pr.id_prato  -- << Aqui: usar prato_id!
+        pratos pr ON ped.id_prato = pr.id
       GROUP BY
-        c.id_cliente, c.nome
+        c.id, c.nome
       ORDER BY
         total_gasto DESC
       LIMIT 5;

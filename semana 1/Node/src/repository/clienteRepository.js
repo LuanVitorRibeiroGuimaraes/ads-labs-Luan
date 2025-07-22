@@ -16,12 +16,12 @@ async function createCliente(data) {
     return await Cliente.create(data);
 }
 
-async function updateCliente(newData, id_cliente) {
-    return await Cliente.update(newData, { where: {id_cliente: id_cliente} });
+async function updateCliente(newData, id) {
+    return await Cliente.update(newData, { where: {id: id} });
 }
 
-async function deleteCliente(id_cliente) {
-    return await Cliente.destroy({where: {id_cliente: id_cliente}});
+async function deleteCliente(id) {
+    return await Cliente.destroy({where: {id: id}});
 }
 
 module.exports = {

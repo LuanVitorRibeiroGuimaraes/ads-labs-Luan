@@ -20,7 +20,7 @@ async function getCliente(id_cliente) {
     return findCliente;
 }
 
-async function createCliente(data) {
+async function createClienteService(data) {
     const emailExistente = await clienteRepository.getCliente({ email: data.email });
     const cpfExistente = await clienteRepository.getCliente({ cpf: data.cpf });
 
@@ -41,14 +41,14 @@ async function createCliente(data) {
     return createCliente;
 }
 
-async function updateCliente(newData, id_cliente) {
-    const findCliente = await clienteRepository.getClienteById(id_cliente);
+async function updateCliente(newData, id) {
+    const findCliente = await clienteRepository.getClienteById(id);
 
     if (!findCliente) {
         throw new Error("Cliente não encontrado.");
     }
 
-    const [contUpdateCliente] = await clienteRepository.updateCliente(newData, id_cliente);
+    const [contUpdateCliente] = await clienteRepository.updateCliente(newData, id);
 
     if (contUpdateCliente === 0) {
         throw new Error("Não foi possível atualizar o cliente.");
@@ -76,7 +76,7 @@ async function deleteCliente(id_cliente) {
 module.exports = {
     getAllClientes,
     getCliente,
-    createCliente,
+    createClienteService,
     updateCliente,
     deleteCliente,
 }

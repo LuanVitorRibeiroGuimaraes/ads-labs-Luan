@@ -31,7 +31,7 @@ async function createCliente(req, res) {
     try {
         const data = req.body;
 
-        await clienteService.createCliente(data);
+        await clienteService.createClienteService(data);
         return res.status(201).json({
             message: "Usuário Criado com sucesso."
         });

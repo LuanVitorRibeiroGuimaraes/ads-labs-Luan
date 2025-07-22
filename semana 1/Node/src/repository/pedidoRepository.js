@@ -1,4 +1,4 @@
-const Pedido = require('../models/pedido');
+const { Pedido } = require('../models/pedido');
 
 async function getAllPedidos() {
     return await Pedido.findAll();
@@ -16,12 +16,12 @@ async function createPedido(data) {
     return await Pedido.create(data);
 }
 
-async function updatePedido(newData, id_pedido) {
-    return await Pedido.update(newData, {where: {id_pedido: id_pedido}});
+async function updatePedido(newData, id) {
+    return await Pedido.update(newData, {where: {id: id}});
 }
 
-async function deletePedido(id_pedido) {
-    return await Pedido.destroy({where: id_pedido});
+async function deletePedido(id) {
+    return await Pedido.destroy({where: id});
 }
 
 module.exports = {

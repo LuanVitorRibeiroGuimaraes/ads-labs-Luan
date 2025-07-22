@@ -21,7 +21,7 @@ app.use('/api/user', userRouter);
 const PORT = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
-  return res.status(200).json({message: "hello world"})
+  return res.status(200).json({message: "Api is working!"})
 });
 
 (async () => {

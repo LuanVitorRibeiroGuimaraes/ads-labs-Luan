@@ -149,6 +149,8 @@ function senha(req, res, next) {
             message: range('senha', 8, 16)
         });
     }
+
+    next();
 }
 
 function validateData(req, res, next) {
@@ -191,6 +193,40 @@ function validateData(req, res, next) {
     next();
 }
 
+function validateDataWithoutSenha(req, res, next) {
+    const nome = req.body.nome;
+    const idade = req.body.idade;
+    const cpf = req.body.cpf;
+    const email = req.body.email;
+    const senha = req.body.senha;
+
+    if(!nome) {
+        return res.status(400).json({
+            message: errorMapper('nome', 'required')
+        });
+    }
+
+    if(!idade) {
+        return res.status(400).json({
+            message: errorMapper('idade', 'required')
+        });
+    }
+
+    if(!cpf) {
+        return res.status(400).json({
+            message: errorMapper('cpf', 'required')
+        });
+    }
+
+    if(!email) {
+        return res.status(400).json({
+            message: errorMapper('email', 'required')
+        });
+    }
+
+    next();
+}
+
 function validateId(req, res, next) {
     const id = req.params.id;
 
@@ -210,6 +246,7 @@ module.exports = {
     senha,
     email,
     validateData,
+    validateDataWithoutSenha,
     validateId,
     // numeroTelefone,
 }

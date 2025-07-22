@@ -20,7 +20,7 @@ async function getPedido(id_pedido) {
 
 async function createPedido(data) {
     const restaurante = await restauranteRepository.getRestauranteById(data.id_restaurante);
-    const cliente = await clienteRepository.getClienteById(data.cliente_id);
+    const cliente = await clienteRepository.getClienteById(data.id_cliente);
 
     if(!restaurante) {
         throw new Error('Restaurante não encontrado');

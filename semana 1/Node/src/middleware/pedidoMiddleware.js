@@ -12,24 +12,24 @@ function id_restaurante(req, res, next) {
     next();
 }
 
-function prato_id(req, res, next) {
-    const {prato_id} = req.body;
+function id_prato(req, res, next) {
+    const {id_prato} = req.body;
 
-    if(!prato_id) {
+    if(!id_prato) {
         return res.status(400).json({
-            message: errorMapper('prato_id', 'required')
+            message: errorMapper('id_prato', 'required')
         });
     }
 
     next();
 }
 
-function cliente_id(req, res, next) {
-    const {cliente_id} = req.body;
+function id_cliente(req, res, next) {
+    const {id_cliente} = req.body;
 
-    if(!cliente_id) {
+    if(!id_cliente) {
         return res.status(400).json({
-            message: errorMapper('cliente_id', 'required')
+            message: errorMapper('id_cliente', 'required')
         });
     }
 
@@ -38,8 +38,8 @@ function cliente_id(req, res, next) {
 
 function validateData(req, res, next) {
     const { id_restaurante } = req.body;
-    const { prato_id } = req.body;
-    const { cliente_id } = req.body;
+    const { id_prato } = req.body;
+    const { id_cliente } = req.body;
 
     if(!id_restaurante) {
         return res.status(400).json({
@@ -47,15 +47,15 @@ function validateData(req, res, next) {
         });
     }
 
-    if(!prato_id) {
+    if(!id_prato) {
         return res.status(400).json({
-            message: errorMapper('prato_id', 'required')
+            message: errorMapper('id_prato', 'required')
         });
     }
 
-    if(!cliente_id) {
+    if(!id_cliente) {
         return res.status(400).json({
-            message: errorMapper('cliente_id', 'required')
+            message: errorMapper('id_cliente', 'required')
         });
     }
 
@@ -76,8 +76,8 @@ function validateId(req, res, next) {
 
 module.exports = {
     id_restaurante,
-    prato_id,
-    cliente_id,
+    id_prato,
+    id_cliente,
     validateData,
     validateId,
 }
