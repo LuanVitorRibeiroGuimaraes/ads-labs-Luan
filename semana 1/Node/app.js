@@ -1,5 +1,6 @@
 require('dotenv').config({ path: '.env' });
 const express = require('express');
+const cors = require('cors');
 const { sequelize } = require('./database');
 const { associations } = require('./src/models/associations');
 
@@ -8,8 +9,10 @@ const clienteRouter = require('./src/routes/clienteRoutes');
 const pratoRouter = require('./src/routes/pratoRoutes');
 const pedidoRouter = require('./src/routes/pedidoRoutes');
 const userRouter = require('./src/routes/userRoutes');
+const { contatoRestaurante } = require('./src/middleware/restauranteMiddleware');
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 app.use('/api/restaurante', restauranteRouter);

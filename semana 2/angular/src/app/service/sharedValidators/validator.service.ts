@@ -5,9 +5,53 @@ import { Injectable } from '@angular/core';
 })
 export class ValidatorService {
 
-  constructor() { }
+  validateValue(value: string): string | null {
+  const regex = /^\d+(,\d{1,2})?$/;
 
-validateName(name: string): string | null {
+  if (!value) {
+    return 'O valor é obrigatório';
+  }
+
+  if (!regex.test(value)) {
+    return 'Valor inválido! Use números com vírgula (ex: 10, 10,50)';
+  }
+
+  const numero = parseFloat(value.replace(',', '.'));
+
+  if (numero < 1) {
+    return 'O valor não pode ser menor que 1';
+  }
+
+  return null;
+}
+
+  validateTelFixo(tel: string): string | null {
+    const regex = /^[0-9]+$/;
+    
+    if(!regex.test(String(tel))) {
+      return 'O número inserido é inválido';
+    }
+
+    if(tel.length < 10 || tel.length > 11) {
+      return 'O numero deve conter entre 10 a 11 caracteres no máximo'
+    }
+
+    return null;
+  }
+
+  validateId(id: number): string | null {
+    if(id < 1) {
+      return 'O id não pode ser menor que 1';
+    }
+
+    if(!id) {
+      return 'O id não pode ser vazio';
+    }
+
+    return null;
+  }
+
+  validateName(name: string): string | null {
     if (!name) {
       return 'O nome é obrigatório.';
     }

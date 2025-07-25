@@ -9,4 +9,4 @@ const sequelize = new Sequelize(process.env.CONECTION_URI, {
 
 
 
-module.exports = {sequelize};
+module.exports = { sequelize };

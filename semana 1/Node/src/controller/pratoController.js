@@ -18,9 +18,7 @@ async function getPrato(req, res) {
     const {id} = req.params;
 
         const getPrato = await pratoService.getPrato(id);
-        return res.status(200).json({
-            message: getPrato
-        });
+        return res.status(200).json(getPrato)
     } catch (error) {
         return res.status(500).json({
             message: error.message

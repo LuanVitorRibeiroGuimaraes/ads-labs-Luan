@@ -1,0 +1,26 @@
+<section class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md">
+  <h2 class="text-lg font-semibold text-gray-700">Pedidos</h2>
+
+  @if (isLoading) {
+    <p>Carregando pedidos...</p>
+  } @else {
+    <div class="grid grid-cols-1 gap-4 mt-4">
+      @for (pedido of pedidosCompletos; track pedido.id) {
+        <div class="p-4 border rounded-lg bg-gray-50">
+          <h3 class="font-bold">Pedido #{{ pedido.id }}</h3>
+          <p><span class="font-semibold">Prato:</span> {{ pedido.nome_prato }}</p>
+          <p><span class="font-semibold">Cliente:</span> {{ pedido.nome_cliente }}</p>
+          <p><span class="font-semibold">Restaurante:</span> {{ pedido.nome_restaurante }}</p>
+        </div>
+      }
+    </div>
+  }
+
+  <div class="flex justify-end mt-6">
+    <button (click)="backHome()" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-500">
+      Voltar
+    </button>
+  </div>
+</section>
+
+<app-footer-component></app-footer-component>

@@ -3,9 +3,26 @@ const restauranteRepository = require('../repository/restauranteRepository');
 const clienteRepository = require('../repository/clienteRepository');
 const Cliente = require('../models/cliente');
 const Prato = require('../models/prato');
+const { sequelize } = require('../../database');
 
 async function getAllPedidos() {
-    return await pedidoRepository.getAllPedidos();
+    return (await sequelize.query(`
+    SELECT 
+      p.id,
+      pr.nome AS nome_prato,
+      c.nome AS nome_cliente,
+      r."nomeRestaurante" AS nome_restaurante
+    FROM 
+      pedidos p
+    JOIN 
+      pratos pr ON p.id_prato = pr.id
+    JOIN 
+      clientes c ON p.id_cliente = c.id
+    JOIN 
+      restaurante r ON p.id_restaurante = r.id
+    ORDER BY
+      p.id DESC
+  `))[0];
 }
 
 async function getPedido(id_pedido) {
@@ -62,7 +79,7 @@ async function deletePedido(id_pedido) {
         throw new Error("Pedido não encontrado.");
     }
 
-    const deletedPedido = await pedidoRepository.deletePedido({id_pedido: id_pedido});
+    const deletedPedido = await pedidoRepository.deletePedido({id: id_pedido});
 
     if (deletedPedido == 0) {
         throw new Error("Não foi possível deletar o pedido.");

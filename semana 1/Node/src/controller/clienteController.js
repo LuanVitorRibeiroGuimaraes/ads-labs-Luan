@@ -3,7 +3,7 @@ const clienteService = require('../service/clienteService');
 async function getAllClientes(req, res) {
     try {
         const findAllClientes = await clienteService.getAllClientes();
-        return res.status(200).json({ message: findAllClientes });
+        return res.status(200).json(findAllClientes);
     } catch (error) {
         return res.status(404).json({
             message: error.message
@@ -16,9 +16,7 @@ async function getCliente(req, res) {
         const {id} = req.params;
 
         const getUser = await clienteService.getCliente(id);
-        return res.status(200).json({
-            message: getUser
-        });
+        return res.status(200).json( getUser);
     }
     catch(error) {
         return res.status(404).json({

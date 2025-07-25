@@ -14,9 +14,7 @@ async function getPedidos(req, res) {
         const {id} = req.params;
 
         const findPedido = await pedidoService.getPedido(id);
-        return res.status(200).json({
-            message: [findPedido]
-        });
+        return res.status(200).json(findPedido);
     } catch (error) {
         return res.status(500).json({message: error.message});
     }

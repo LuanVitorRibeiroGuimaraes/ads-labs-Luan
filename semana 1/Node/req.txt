@@ -1,0 +1,3 @@
+exemplo de uri do postgres:
+
+'postgresql:USERNAME:PASSWORD@HOST"PORT/DB NAME'
