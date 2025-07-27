@@ -1,3 +1,4 @@
+import { PedidoCompleto } from './../../models/pedido.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -15,7 +16,7 @@ export class PedidosService {
   }
 
   listarPedidosId(id: number) {
-    return this.httpClient.get<any[]>(this.API_URL + id);
+    return this.httpClient.get<PedidoCompleto>(this.API_URL + id);
   }
 
   atualizarPedido(id_restaurante:number = 1, idPedido: number, id_prato: number) {
@@ -33,12 +34,12 @@ export class PedidosService {
       id_prato: item,
       id_restaurante: 1,
     }
-    
+
     return this.httpClient.post(this.API_URL, body);
   }
-  
+
   // atualizarPedido()
-  
+
   deletarPedido(id: number) {
     return this.httpClient.delete(this.API_URL + id);
   }

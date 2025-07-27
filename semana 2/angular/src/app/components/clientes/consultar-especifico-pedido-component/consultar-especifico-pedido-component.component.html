@@ -36,15 +36,14 @@
             <h3 class="text-lg font-semibold text-gray-700">Detalhes do Pedido</h3>
             <ul class="mt-4 space-y-2">
                 <li class="p-4 bg-gray-100 rounded-md">
-                    @for (pedidoE of pedidoEspecifico; track pedidoE.id) {
-                        <p><strong>Pedido:</strong> #{{ pedidoE.id }}</p>
-                        <p><strong>Cliente:</strong> {{ pedidoE.id_cliente }}</p>
-                        <p><strong>Prato:</strong> {{ pedidoE.id_prato }}</p>
+                    @for (pedido2 of pedidoEspecifico; track pedido2.id) {
+                        <p><strong>Pedido:</strong>  #{{ pedido2.id }}</p>
+                        <p><strong>Cliente:</strong>  {{ pedido2.nome_cliente }}</p>
+                        <p><strong>Prato:</strong>  {{ pedido2.nome_prato }}</p>
                     }
                 </li>
             </ul>
         </div>
-
 
     </form>
 

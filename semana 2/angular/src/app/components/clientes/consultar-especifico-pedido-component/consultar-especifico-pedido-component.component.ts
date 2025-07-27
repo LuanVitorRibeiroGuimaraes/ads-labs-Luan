@@ -47,11 +47,10 @@ export class ConsultarEspecificoPedidoComponentComponent {
     this.pedidoService
     .listarPedidosId(Number(idPedido.value))
     .subscribe({
-      next: (pedido) => {
+      next: (pedido: any) => { //defini como any para poder receber qualquer tipo de objeto
         this.pedidoEspecifico = pedido;
         console.log('Pedido específico:', this.pedidoEspecifico);
         console.log('Formulário válido! Enviando...');
-        // window.location.reload()
       },
       error: (err) => {
         console.log(err.message);

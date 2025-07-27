@@ -26,13 +26,25 @@ async function getAllPedidos() {
 }
 
 async function getPedido(id_pedido) {
-    const findPedido = await pedidoRepository.getPedidoById(id_pedido);
-    
-    if (!findPedido) {
-        throw new Error("Pedido não encontrado.");
-    }
-
-    return findPedido;
+    return (await sequelize.query(`
+        SELECT 
+      p.id,
+      pr.nome AS nome_prato,
+      c.nome AS nome_cliente,
+      r."nomeRestaurante" AS nome_restaurante
+    FROM 
+      pedidos p
+    JOIN 
+      pratos pr ON p.id_prato = pr.id
+    JOIN 
+      clientes c ON p.id_cliente = c.id
+    JOIN 
+      restaurante r ON p.id_restaurante = r.id
+    WHERE 
+      p.id = ${id_pedido}
+    ORDER BY 
+      p.id DESC
+        `))[0];
 }
 
 async function createPedido(data) {
