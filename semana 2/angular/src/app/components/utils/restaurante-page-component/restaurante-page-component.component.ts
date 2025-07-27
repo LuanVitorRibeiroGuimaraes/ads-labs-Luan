@@ -19,16 +19,8 @@ export class RestaurantePageComponentComponent {
     this.router.navigate(['manageRestaurante']);
   }
 
-  clientesMaisPedidos() {
-    this.router.navigate(['clientesMaisPedidos']);
-  }
-
-  clientesMaisGastos() {
-    this.router.navigate(['clientesMaisGastos']);
-  }
-
-  pratosMaisPedidos() {
-    this.router.navigate(['pratosMaisPedidos']);
+  goToRelatorios() {
+    this.router.navigate(['relatorios']);
   }
 
   criarPrato() {
@@ -45,5 +37,9 @@ export class RestaurantePageComponentComponent {
 
   consultarPrato() {
     this.router.navigate(['consultarPrato']);
+  }
+
+  consultarTodosPrato() {
+    this.router.navigate(['consultarTodosPratos']);
   }
 }

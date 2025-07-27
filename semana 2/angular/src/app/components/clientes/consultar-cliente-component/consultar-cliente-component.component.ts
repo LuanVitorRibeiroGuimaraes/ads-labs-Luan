@@ -21,7 +21,7 @@ export class ConsultarClienteComponentComponent {
   cliente: Cliente[] = [];
 
   backHome() {
-    this.router.navigate(['restaurante']);
+    this.router.navigate(['cliente']);
   }
 
   submitBtn(id: string) {

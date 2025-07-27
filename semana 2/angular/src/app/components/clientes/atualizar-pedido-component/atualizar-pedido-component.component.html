@@ -1,0 +1,64 @@
+<section class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md">
+    <h2 class="text-lg font-semibold text-gray-700 ">Atualizar Pedido</h2>
+
+    @if (erros.length>0) {
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+        <strong class="font-bold">Corrija os seguintes erros:</strong>
+        <ul class="list-disc pl-5 mt-2">
+            @for (erro of erros; track erros) {
+            <li>{{ erro }}</li>
+            }
+        </ul>
+    </div>
+    }
+
+    <form>
+        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+            <div>
+                <label class="text-gray-700" for="username">Número Pedido</label>
+                <select required
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-blue-500 rounded-md focus:border-blue-500 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring text-gray-700"
+                    id="pedidoSelect">
+                    <option value="" selected disabled>--Selecione o pedido--</option>
+                    @for (pedido of pedidos; track pedido.id) {
+                    <option [value]="pedido.id" #pedido>
+                        Pedido: #{{ pedido.id }}, 
+                        {{ pedido.nome_cliente }}, 
+                        {{ pedido.nome_prato }}
+                    </option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+            <div>
+                <label class="text-gray-700" for="username">Item</label>
+                <select required
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-blue-500 rounded-md focus:border-blue-500 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring text-gray-700"
+                    id="pratoSelect">
+                    <option value="" selected disabled>--Selecione o prato--</option>
+                    @for (prato of pratos; track prato.nome) {
+                    <option [value]="prato.id" #pedido>Pedido: {{ prato.nome }}</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="flex justify-end mt-6">
+            <button type="button" (click)="submitBtn()"
+                class="cursor-pointer px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:bg-gray-600">Atualizar
+                Pedido</button>
+        </div>
+
+        <div class="flex justify-end mt-6">
+        </div>
+        <div class="flex justify-end">
+            <button (click)="backHome()"
+                class="cursor-pointer px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-red-700 rounded-md hover:bg-red-500 focus:outline-none focus:bg-gray-600">Voltar</button>
+        </div>
+
+    </form>
+
+</section>
+<app-footer-component></app-footer-component>

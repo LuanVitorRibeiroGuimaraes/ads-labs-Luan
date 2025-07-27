@@ -19,11 +19,9 @@ pedidoRouter.post('/',
     pedidoController.createPedido);
 
 pedidoRouter.put('/:id',
-    pedidoMiddleware.validateId,
     pedidoMiddleware.validateData,
     pedidoMiddleware.id_restaurante,
     pedidoMiddleware.id_prato,
-    pedidoMiddleware.id_cliente,
     pedidoController.updatePedido);
 
 pedidoRouter.delete('/:id', 

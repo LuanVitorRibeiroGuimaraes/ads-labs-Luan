@@ -23,6 +23,10 @@ import { AtualizarPratoComponentComponent } from './components/restaurante/atual
 import { DeletarPratoComponentComponent } from './components/restaurante/deletar-prato-component/deletar-prato-component.component';
 import { ConsultarPratoComponentComponent } from './components/restaurante/consultar-prato-component/consultar-prato-component.component';
 import { ConsultarClienteComponentComponent } from './components/clientes/consultar-cliente-component/consultar-cliente-component.component';
+import { ConsultarTodosPratoComponentComponent } from './components/restaurante/consultar-todos-prato-component/consultar-todos-prato-component.component';
+import { RelatoriosComponentComponent } from './components/restaurante/relatorios-component/relatorios-component.component';
+import { AtualizarPedidoComponentComponent } from './components/clientes/atualizar-pedido-component/atualizar-pedido-component.component';
+import { ConsultarEspecificoPedidoComponentComponent } from './components/clientes/consultar-especifico-pedido-component/consultar-especifico-pedido-component.component';
 
 export const routes: Routes = [
 
@@ -144,6 +148,26 @@ export const routes: Routes = [
     {
       path: 'consultarCliente',
       component: ConsultarClienteComponentComponent,
+    },
+
+    {
+      path: 'consultarTodosPratos',
+      component: ConsultarTodosPratoComponentComponent,
+    },
+
+    {
+      path: 'relatorios',
+      component: RelatoriosComponentComponent,
+    },
+
+    {
+      path: 'editarPedido',
+      component: AtualizarPedidoComponentComponent,
+    },
+
+    {
+      path: 'consultarPedidosEspecificos',
+      component: ConsultarEspecificoPedidoComponentComponent,
     },
 
     {

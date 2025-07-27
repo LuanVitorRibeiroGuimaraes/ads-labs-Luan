@@ -14,10 +14,24 @@ export class PedidosService {
     return this.httpClient.get<any[]>(this.API_URL + 'all');
   }
 
-  criarPedido(restaurante: number, item: number) {
+  listarPedidosId(id: number) {
+    return this.httpClient.get<any[]>(this.API_URL + id);
+  }
+
+  atualizarPedido(id_restaurante:number = 1, idPedido: number, id_prato: number) {
     const body = {
+      id_prato: id_prato,
+      id_restaurante: id_restaurante,
+    }
+
+    return this.httpClient.put(this.API_URL + idPedido, body);
+  }
+
+  criarPedido(cliente: number, item: number) {
+    const body = {
+      id_cliente: cliente,
       id_prato: item,
-      id_cliente: restaurante,
+      id_restaurante: 1,
     }
     
     return this.httpClient.post(this.API_URL, body);

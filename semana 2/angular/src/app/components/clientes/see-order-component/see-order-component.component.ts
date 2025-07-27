@@ -28,24 +28,32 @@ export class SeeOrderComponentComponent {
   ) {}
 
   ngOnInit() {
-    this.carregarPedidosComRelacionamentos();
-  }
-
-  carregarPedidosComRelacionamentos() {
-    this.isLoading = true;
-    
-    this.pedidoService.listarPedidos().subscribe({
-      next: (response: any) => {
-        // Acessa o array de pedidos dentro da propriedade 'message'
-        this.pedidosCompletos = response.message || [];
-        this.isLoading = false;
+    this.pedidoService.listarPedidos()
+    .subscribe({
+      next: (data) => {
+        this.pedidosCompletos = data;
       },
-      error: (err) => {
-        console.error('Erro ao carregar pedidos:', err);
-        this.isLoading = false;
+      error: (error) => {
+        console.error('Erro ao carregar pedidos:', error);
       }
     });
   }
+
+  // carregarPedidosComRelacionamentos() {
+  //   this.isLoading = true;
+    
+  //   this.pedidoService.listarPedidos().subscribe({
+  //     next: (response: any) => {
+  //       // Acessa o array de pedidos dentro da propriedade 'message'
+  //       this.pedidosCompletos = response.message || [];
+  //       this.isLoading = false;
+  //     },
+  //     error: (err) => {
+  //       console.error('Erro ao carregar pedidos:', err);
+  //       this.isLoading = false;
+  //     }
+  //   });
+  // }
 
   backHome() {
     this.router.navigate(['cliente']);

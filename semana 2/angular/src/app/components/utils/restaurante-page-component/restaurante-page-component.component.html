@@ -7,11 +7,6 @@
 
         <div class="flex gap-5 justify-center itens-center">
             <div>
-                <button (click)="pratosMaisPedidos()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
-                    Pratos mais pedidos
-                </button>
-            </div>
-            <div>
                 <button (click)="criarPrato()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
                     Criar Prato
                 </button>
@@ -19,6 +14,11 @@
             <div>
                 <button (click)="consultarPrato()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
                     Consultar Prato
+                </button>
+            </div>
+            <div>
+                <button (click)="consultarTodosPrato()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
+                    Consultar Todos Prato
                 </button>
             </div>
             <div>
@@ -31,16 +31,6 @@
                     Deletar Prato
                 </button>
             </div>
-            <div>
-                <button (click)="clientesMaisPedidos()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
-                    Clientes que mais pediram
-                </button>
-            </div>
-            <div>
-                <button (click)="clientesMaisGastos()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
-                    Clientes que mais gastaram
-                </button>
-            </div>
         </div>
     </div>
     <div class="flex place-content-center gap-4 m-4">
@@ -49,9 +39,14 @@
               Editar Restaurante
           </button>
       </div>
-      <div >
+      <div>
           <button (click)="goToData()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
-              Ver dados
+              Ver dados Restaurante
+          </button>
+      </div>
+      <div >
+          <button (click)="goToRelatorios()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
+              Relatórios
           </button>
       </div>
     </div>

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FooterComponentComponent } from '../../utils/footer-component/footer-component.component';
+import { relatorio } from '../../../models/relatorio.model';
+import { RestauranteService } from '../../../service/crud/restaurante.service';
 
 @Component({
   selector: 'app-cliente-mais-gastaram-component',
@@ -9,9 +11,27 @@ import { FooterComponentComponent } from '../../utils/footer-component/footer-co
   styleUrl: './cliente-mais-gastaram-component.component.css'
 })
 export class ClienteMaisGastaramComponentComponent {
-  constructor(private router:Router) {}
+  constructor(
+    private router:Router,
+    private restaurateService: RestauranteService,
+  ) {}
 
   backHome() {
-    this.router.navigate(['restaurante']);
+    this.router.navigate(['relatorios']);
+  }
+
+  relatorioCliente: relatorio[] = [];
+
+  //funcionando para listar os clientes que mais gastaram
+  ngOnInit() {
+    this.restaurateService.clintesMaisGastos().subscribe({
+      next: (dados) => {
+        this.relatorioCliente = dados;
+        console.log('Clientes mais gastaram:', this.relatorioCliente);
+      },
+      error: (err) => {
+        console.error('Erro ao listar clientes mais gastaram:', err);
+      }
+    });
   }
 }

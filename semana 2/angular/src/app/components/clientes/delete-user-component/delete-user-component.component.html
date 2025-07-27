@@ -15,13 +15,18 @@
   <form>
     <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
       <div>
-        <label  class="text-gray-700" for="cpf">ID</label>
-        <input #id id="cpf" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-blue-500 rounded-md focus:border-blue-500 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring">
+        <label class="text-gray-700" for="username">Cliente</label>
+        <select required class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-blue-500 rounded-md focus:border-blue-500 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring text-gray-700" id="clienteId">
+          <option selected disabled>--Selecione o cliente--</option>
+          @for (cliente of clientes; track cliente.id) {
+          <option [value]="cliente.id" #cliente >{{ cliente.nome }}</option>
+          }
+        </select>
       </div>
     </div>
 
     <div class="flex justify-end mt-6">
-      <button type="button" (click)="submitBtn(id.value)" class="cursor-pointer px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:bg-gray-600">Deletar Cliete</button>
+      <button type="button" (click)="submitBtn()" class="cursor-pointer px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:bg-gray-600">Deletar Cliete</button>
     </div>
 
     <div class="flex justify-end mt-6">

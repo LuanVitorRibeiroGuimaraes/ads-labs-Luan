@@ -3,7 +3,7 @@ const pedidoService = require('../service/pedidoService');
 async function getAllPedidos(req, res) {
     try {
         const getAllPedidos = await pedidoService.getAllPedidos();
-        return res.status(200).json({message: getAllPedidos});
+        return res.status(200).json(getAllPedidos);
     } catch (error) {
         return res.status(400).json({message: error.message});      
     }

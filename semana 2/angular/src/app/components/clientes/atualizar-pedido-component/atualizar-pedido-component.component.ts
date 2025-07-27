@@ -1,21 +1,24 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { FooterComponentComponent } from '../../utils/footer-component/footer-component.component';
-import { ValidatorService } from '../../../service/sharedValidators/validator.service';
 import { PedidosService } from '../../../service/crud/pedidos.service';
+import { ValidatorService } from '../../../service/sharedValidators/validator.service';
+import { Router } from '@angular/router';
 import { PedidoCompleto } from '../../../models/pedido.model';
+import { FooterComponentComponent } from '../../utils/footer-component/footer-component.component';
+import { FormsModule } from '@angular/forms';
+import { Prato } from '../../../models/prato.model';
+import { PratosService } from '../../../service/crud/pratos.service';
 
 @Component({
-  selector: 'app-deletar-pedido-component',
-  imports: [FooterComponentComponent],
-  templateUrl: './deletar-pedido-component.component.html',
-  styleUrl: './deletar-pedido-component.component.css'
+  selector: 'app-atualizar-pedido-component',
+  imports: [FooterComponentComponent, FormsModule],
+  templateUrl: './atualizar-pedido-component.component.html',
+  styleUrl: './atualizar-pedido-component.component.css'
 })
-export class DeletarPedidoComponentComponent {
+export class AtualizarPedidoComponentComponent {
   constructor(
     private router: Router,
-    private validatorService: ValidatorService,
     private pedidoService: PedidosService,
+    private pratoService: PratosService,
   ) {}
 
   erros: string[] = [];
@@ -28,9 +31,10 @@ export class DeletarPedidoComponentComponent {
   dadosPedidoSelecionado?: PedidoCompleto;
 
   pedidos: PedidoCompleto[] = [];
+  pratos: Prato[] = [];
 
   alert200(id: number) {
-    alert(`Pedido ID: ${id} foi deletado.`);
+    alert(`Pedido ID: ${id} foi atualizado.`);
   }
 
 
@@ -41,6 +45,14 @@ export class DeletarPedidoComponentComponent {
       },
       error: (err) => {
         console.error('Erro ao listar pedidos:', err);
+      }});
+
+    this.pratoService.listarPratos().subscribe({
+      next: (dados) => {
+        this.pratos = dados;
+      },
+      error: (err) => {
+        console.error('Erro ao listar pratos:', err);
       }
     });
   }
@@ -48,15 +60,16 @@ export class DeletarPedidoComponentComponent {
   submitBtn() {
   this.erros = [];
 
-  const id = document.getElementById('pedidoSelect') as HTMLSelectElement;
+    const idPedido = document.getElementById('pedidoSelect') as HTMLSelectElement;
+    const idPrato = document.getElementById('pratoSelect') as HTMLSelectElement;
 
   if (this.erros.length > 0) return;
   else {
     this.pedidoService
-    .deletarPedido(Number(id.value))
+    .atualizarPedido(1, Number(idPedido.value), Number(idPrato.value))
     .subscribe({
       next: () => {
-        this.alert200(Number(id.value));
+        this.alert200(Number(idPedido.value));
         console.log('Formulário válido! Enviando...');
         window.location.reload()
       },

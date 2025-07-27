@@ -11,15 +11,15 @@ export class RestauranteService {
   constructor(private httpClient: HttpClient) { }
 
   clintesMaisGastos() {
-    return this.httpClient.get(this.API_URL + '/maisGastosClientes');
+    return this.httpClient.get<any[]>(this.API_URL + 'maisGastosClientes');
   }
 
   clientesMaisPedidos() {
-    return this.httpClient.get(this.API_URL + '/maisPedidosCliente');
+    return this.httpClient.get<any[]>(this.API_URL + 'maisPedidosCliente');
   }
 
   pratosMaisPedidos() {
-    return this.httpClient.get(this.API_URL + '/maisPedidosPratos');
+    return this.httpClient.get<any[]>(this.API_URL + 'maisPedidosPratos');
   }
 
    listarRestaurantes() {

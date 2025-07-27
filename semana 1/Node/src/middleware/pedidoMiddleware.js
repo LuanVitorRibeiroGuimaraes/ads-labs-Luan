@@ -53,12 +53,6 @@ function validateData(req, res, next) {
         });
     }
 
-    if(!id_cliente) {
-        return res.status(400).json({
-            message: errorMapper('id_cliente', 'required')
-        });
-    }
-
     next();
 }
 

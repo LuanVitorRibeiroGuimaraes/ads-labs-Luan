@@ -3,6 +3,7 @@ export interface PedidoCompleto {
     id_prato: number;
     id_cliente: number;
     id_restaurante: number;
-    nomeCliente: string;
-    nomeRestaurante: string;
+    nome_prato: string;
+    nome_cliente: string;
+    nome_restaurante: string;
 }

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ClienteService } from '../../../service/crud/cliente.service';
 import { CpfService } from '../../../service/cpfService/cpf.service';
+import { Cliente } from '../../../models/cliente.model';
 
 @Component({
   selector: 'app-manage-user-component',
@@ -25,14 +26,29 @@ export class ManageUserComponentComponent {
     this.router.navigate(['cliente']);
   }
 
-  alert200(){
+  alert200(id: number){
     alert('Cliente atualizado!');
   }
 
   erros: string[] = [];
+  clientes: Cliente[] = [];
 
-  submitBtn(name: string, age: string, email: string, cpf: string, id: string) {
+  ngOnInit() {
+    this.clienteService.listarCliente()
+    .subscribe({
+      next: (clientes) => {
+        this.clientes = clientes;
+      },
+      error: (err) => {
+        console.error('Erro ao listar clientes:', err);
+      }
+    });
+  }
+
+  submitBtn(name: string, age: string, email: string, cpf: string) {
   this.erros = [];
+
+  const clienteId = document.getElementById('clienteId') as HTMLInputElement;
 
   const nomeErro = this.validatorService.validateName(name);
   if (nomeErro) this.erros.push(nomeErro);
@@ -49,10 +65,10 @@ export class ManageUserComponentComponent {
   if (this.erros.length > 0) return;
   else {
     this.clienteService
-    .editarCliente(name, Number(age), cpf, email, Number(id))
+    .editarCliente(name, Number(age), cpf, email, Number(clienteId.value))
     .subscribe({
       next: () => {
-        this.alert200();
+        this.alert200(Number(clienteId));
         window.location.reload()
       },
       error: (err) => {

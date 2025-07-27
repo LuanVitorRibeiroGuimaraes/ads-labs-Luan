@@ -45,19 +45,19 @@ export class DeleteUserComponentComponent {
     alert(`Cliente ID: ${id} foi deletado.`);
   }
 
-  submitBtn(id: string) {
+  submitBtn() {
   this.erros = [];
 
-  const idErro = this.validatorService.validateId(Number(id));
-  if (idErro) this.erros.push(idErro);
+  const id = document.getElementById('clienteId') as HTMLSelectElement;
 
   if (this.erros.length > 0) return;
   else {
     this.clienteService
-    .excluirCliente(Number(id))
+    .excluirCliente(Number(id.value))
     .subscribe({
       next: () => {
-        this.alert200(Number(id));
+        console.log(id);
+        this.alert200(Number(id.value));
         console.log('Formulário válido! Enviando...');
         window.location.reload()
       },

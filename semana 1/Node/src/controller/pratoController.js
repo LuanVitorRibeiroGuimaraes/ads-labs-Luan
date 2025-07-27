@@ -3,9 +3,7 @@ const pratoService = require('../service/pratoService');
 async function getAllPratos(req, res) {
     try {
         const allPratos = await pratoService.getAllPratos();
-        return res.status(200).json({
-            message: allPratos
-        });
+        return res.status(200).json(allPratos);
     } catch (error) {
         return res.status(500).json({
             message: error.message

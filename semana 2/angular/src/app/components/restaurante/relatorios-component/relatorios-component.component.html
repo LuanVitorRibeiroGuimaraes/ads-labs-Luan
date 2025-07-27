@@ -1,0 +1,26 @@
+<section class="h-screen flex flex-col justify-center items-center text-center gap-6">
+  <h1 class="text-[46px]">
+    Relatórios
+  </h1>
+
+  <div class="flex gap-5">
+    <button (click)="clienteMaisGastos()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
+      Clientes com mais gastos
+    </button>
+    <button (click)="clienteMaisPedidos()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
+      Clientes com mais pedidos
+    </button>
+    <button (click)="pratosMaisPedidos()" class="cursor-pointer bg-blue-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-blue-700 rounded-md">
+      Pratos mais pedidos
+    </button>
+  </div>
+  <div class="flex place-content-center gap-4 m-4">
+      <div>
+          <button (click)="backButton()" class="cursor-pointer bg-red-500 px-5 py-3 text-sm/6 font-semibold text-white hover:bg-red-600 rounded-md">
+              Voltar
+          </button>
+      </div>
+    </div>
+</section>
+
+<app-footer-component></app-footer-component>

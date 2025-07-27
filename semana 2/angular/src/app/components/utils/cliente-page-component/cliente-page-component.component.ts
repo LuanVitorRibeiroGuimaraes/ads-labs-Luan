@@ -47,4 +47,12 @@ export class ClientePageComponentComponent {
   consultarCliente() {
     this.router.navigate(['consultarCliente']);
   }
+
+  goToUpdateOrder() {
+    this.router.navigate(['editarPedido']);
+  }
+
+  goToSeeEspecific() {
+    this.router.navigate(['consultarPedidosEspecificos']);
+  }
 }
